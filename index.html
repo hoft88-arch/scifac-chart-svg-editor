@@ -9,10 +9,18 @@
       --bg-app: #0B0F19;
       --bg-panel: #111827;
       --bg-panel-elevated: #1E293B;
+      --bg-panel-hover: #283548;
       --bg-input: #0F172A;
       --bg-canvas: #0D1322;
+      --bg-header-sub: rgba(15, 23, 42, 0.5);
+      --bg-breadcrumb: rgba(17, 24, 39, 0.92);
+      --bg-hud: rgba(17, 24, 39, 0.92);
+      --bg-card-subtle: rgba(15, 23, 42, 0.65);
+      --bg-code: #070B14;
+      --text-code: #E2E8F0;
       --border-subtle: #1E293B;
       --border-default: #334155;
+      --border-hover: #475569;
       --border-focus: #38BDF8;
       --text-primary: #F8FAFC;
       --text-secondary: #94A3B8;
@@ -24,8 +32,36 @@
       --accent-rose: #F43F5E;
       --accent-amber: #F59E0B;
       --accent-emerald: #10B981;
+      --accent-text: #38BDF8;
+      --grid-dot: rgba(148, 163, 184, 0.14);
+      --shadow-stage: 0 20px 60px rgba(0, 0, 0, 0.55), 0 0 0 1px rgba(255, 255, 255, 0.08);
       --font-sans: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, 'Helvetica Neue', Arial, sans-serif;
       --font-mono: 'SFMono-Regular', Consolas, 'Liberation Mono', Menlo, monospace;
+    }
+
+    body.light-theme {
+      --bg-app: #F1F5F9;
+      --bg-panel: #FFFFFF;
+      --bg-panel-elevated: #F8FAFC;
+      --bg-panel-hover: #E2E8F0;
+      --bg-input: #F1F5F9;
+      --bg-canvas: #E2E8F0;
+      --bg-header-sub: rgba(241, 245, 249, 0.85);
+      --bg-breadcrumb: rgba(255, 255, 255, 0.94);
+      --bg-hud: rgba(255, 255, 255, 0.94);
+      --bg-card-subtle: #F8FAFC;
+      --bg-code: #F8FAFC;
+      --text-code: #0F172A;
+      --border-subtle: #E2E8F0;
+      --border-default: #CBD5E1;
+      --border-hover: #94A3B8;
+      --border-focus: #2563EB;
+      --text-primary: #0F172A;
+      --text-secondary: #475569;
+      --text-muted: #64748B;
+      --accent-text: #0284C7;
+      --grid-dot: rgba(71, 85, 105, 0.22);
+      --shadow-stage: 0 16px 48px rgba(15, 23, 42, 0.16), 0 0 0 1px rgba(15, 23, 42, 0.08);
     }
 
     * {
@@ -44,6 +80,7 @@
       font-family: var(--font-sans);
       font-size: 13px;
       -webkit-font-smoothing: antialiased;
+      transition: background-color 0.18s ease, color 0.18s ease;
     }
 
     /* ================= TOP HEADER TOOLBAR ================= */
@@ -116,9 +153,9 @@
     .loaded-file-pill {
       font-size: 11px;
       font-family: var(--font-mono);
-      color: #38BDF8;
-      background: rgba(56, 189, 248, 0.1);
-      border: 1px solid rgba(56, 189, 248, 0.25);
+      color: var(--accent-text);
+      background: rgba(56, 189, 248, 0.12);
+      border: 1px solid rgba(56, 189, 248, 0.28);
       padding: 4px 8px;
       border-radius: 5px;
       max-width: 180px;
@@ -146,8 +183,8 @@
     }
 
     .btn:hover {
-      background: #283548;
-      border-color: #475569;
+      background: var(--bg-panel-hover);
+      border-color: var(--border-hover);
     }
 
     .btn:active {
@@ -155,8 +192,13 @@
     }
 
     .btn.active {
-      background: rgba(37, 99, 235, 0.25);
+      background: rgba(37, 99, 235, 0.18);
       border-color: #3B82F6;
+      color: var(--accent-primary);
+    }
+
+    body:not(.light-theme) .btn.active {
+      background: rgba(37, 99, 235, 0.25);
       color: #60A5FA;
     }
 
@@ -169,6 +211,7 @@
     .btn-primary:hover {
       background: linear-gradient(135deg, #3B82F6 0%, #2563EB 100%);
       border-color: #60A5FA;
+      color: #FFFFFF;
     }
 
     .btn-teal {
@@ -179,6 +222,7 @@
 
     .btn-teal:hover {
       background: linear-gradient(135deg, #14B8A6 0%, #0D9488 100%);
+      color: #FFFFFF;
     }
 
     .btn-amber {
@@ -189,6 +233,7 @@
 
     .btn-amber:hover {
       background: linear-gradient(135deg, #F59E0B 0%, #D97706 100%);
+      color: #FFFFFF;
     }
 
     .btn-icon {
@@ -253,7 +298,7 @@
       letter-spacing: 0.5px;
       text-transform: uppercase;
       color: var(--text-secondary);
-      background: rgba(15, 23, 42, 0.5);
+      background: var(--bg-header-sub);
     }
 
     .layer-search-box {
@@ -302,15 +347,20 @@
     }
 
     .layer-item:hover {
-      background: rgba(255, 255, 255, 0.05);
+      background: rgba(148, 163, 184, 0.12);
       color: var(--text-primary);
     }
 
     .layer-item.selected {
-      background: rgba(37, 99, 235, 0.28);
-      color: #FFFFFF;
+      background: rgba(37, 99, 235, 0.18);
+      color: var(--text-primary);
       font-weight: 600;
       border: 1px solid rgba(59, 130, 246, 0.45);
+    }
+
+    body:not(.light-theme) .layer-item.selected {
+      background: rgba(37, 99, 235, 0.28);
+      color: #FFFFFF;
     }
 
     .layer-toggle {
@@ -329,7 +379,7 @@
       width: 11px;
       height: 11px;
       border-radius: 3px;
-      border: 1px solid rgba(255, 255, 255, 0.25);
+      border: 1px solid rgba(148, 163, 184, 0.4);
       flex-shrink: 0;
     }
 
@@ -338,9 +388,14 @@
       font-size: 10px;
       padding: 1px 4px;
       border-radius: 3px;
+      background: rgba(59, 130, 246, 0.12);
+      color: var(--accent-primary);
+      flex-shrink: 0;
+    }
+
+    body:not(.light-theme) .layer-tag {
       background: rgba(148, 163, 184, 0.12);
       color: #93C5FD;
-      flex-shrink: 0;
     }
 
     .layer-label {
@@ -372,8 +427,8 @@
     }
 
     .layer-action-btn:hover {
-      background: rgba(255, 255, 255, 0.12);
-      color: #FFFFFF;
+      background: rgba(148, 163, 184, 0.2);
+      color: var(--text-primary);
     }
 
     /* ================= CENTER PANEL: INTERACTIVE CANVAS ================= */
@@ -388,7 +443,7 @@
     /* Breadcrumb Bar */
     .breadcrumb-bar {
       height: 34px;
-      background: rgba(17, 24, 39, 0.92);
+      background: var(--bg-breadcrumb);
       border-bottom: 1px solid var(--border-subtle);
       display: flex;
       align-items: center;
@@ -418,13 +473,18 @@
 
     .crumb:hover {
       background: var(--bg-panel-elevated);
-      color: #FFFFFF;
+      color: var(--text-primary);
     }
 
     .crumb.active {
+      background: rgba(37, 99, 235, 0.18);
+      color: var(--accent-primary);
+      font-weight: 600;
+    }
+
+    body:not(.light-theme) .crumb.active {
       background: rgba(37, 99, 235, 0.25);
       color: #60A5FA;
-      font-weight: 600;
     }
 
     .crumb-sep {
@@ -438,7 +498,7 @@
       overflow: hidden;
       cursor: default;
       background-image:
-        radial-gradient(rgba(148, 163, 184, 0.14) 1px, transparent 1px);
+        radial-gradient(var(--grid-dot) 1px, transparent 1px);
       background-size: 20px 20px;
     }
 
@@ -463,7 +523,7 @@
       top: 0;
       left: 0;
       transform-origin: 0 0;
-      box-shadow: 0 20px 60px rgba(0, 0, 0, 0.55), 0 0 0 1px rgba(255, 255, 255, 0.08);
+      box-shadow: var(--shadow-stage);
       border-radius: 4px;
     }
 
@@ -498,20 +558,19 @@
     }
 
     .empty-canvas-card {
-      background: rgba(17, 24, 39, 0.92);
-      border: 2px dashed #334155;
+      background: var(--bg-panel);
+      border: 2px dashed var(--border-default);
       border-radius: 16px;
       padding: 36px 42px;
       max-width: 480px;
       width: 100%;
       text-align: center;
-      box-shadow: 0 20px 50px rgba(0, 0, 0, 0.45);
+      box-shadow: 0 20px 50px rgba(0, 0, 0, 0.2);
       transition: border-color 0.18s ease, background 0.18s ease;
     }
 
     .empty-canvas-card:hover {
-      border-color: #38BDF8;
-      background: rgba(17, 24, 39, 0.98);
+      border-color: var(--border-focus);
     }
 
     /* Overlay for Selection Bounding Boxes, Snap Guides & Artboard Crop */
@@ -557,6 +616,56 @@
       cursor: nwse-resize;
     }
 
+    .resize-handle:hover {
+      fill: #38BDF8;
+      stroke: #0F172A;
+    }
+
+    .resize-handle-wrap {
+      fill: #06B6D4;
+      stroke: #0F172A;
+      stroke-width: 1.4;
+      pointer-events: all;
+      cursor: ew-resize;
+    }
+
+    .resize-handle-wrap:hover {
+      fill: #F59E0B;
+    }
+
+    .resize-handle-endpoint {
+      fill: #F59E0B;
+      stroke: #0F172A;
+      stroke-width: 1.6;
+      pointer-events: all;
+      cursor: crosshair;
+    }
+
+    .resize-handle-endpoint:hover {
+      fill: #38BDF8;
+    }
+
+    .input-textarea {
+      width: 100%;
+      min-height: 54px;
+      background: var(--bg-input);
+      border: 1px solid var(--border-default);
+      border-radius: 6px;
+      padding: 6px 10px;
+      color: var(--text-primary);
+      font-size: 12px;
+      font-family: var(--font-sans);
+      line-height: 1.4;
+      resize: vertical;
+      outline: none;
+      user-select: text;
+    }
+
+    .input-textarea:focus {
+      border-color: var(--border-focus);
+      box-shadow: 0 0 0 2px rgba(56, 189, 248, 0.15);
+    }
+
     .snap-line {
       stroke: #EC4899;
       stroke-width: 1.2;
@@ -573,7 +682,7 @@
 
     /* Interactive Artboard Crop Overlay Styles */
     .crop-mask {
-      fill: rgba(8, 12, 22, 0.68);
+      fill: rgba(8, 12, 22, 0.58);
       fill-rule: evenodd;
       pointer-events: none;
     }
@@ -615,12 +724,12 @@
       display: none;
       align-items: center;
       gap: 8px;
-      background: rgba(15, 23, 42, 0.96);
+      background: var(--bg-hud);
       backdrop-filter: blur(10px);
-      border: 1px solid #38BDF8;
+      border: 1px solid var(--border-focus);
       padding: 7px 12px;
       border-radius: 10px;
-      box-shadow: 0 12px 32px rgba(0, 0, 0, 0.55);
+      box-shadow: 0 12px 32px rgba(0, 0, 0, 0.25);
       z-index: 35;
       font-size: 11.5px;
     }
@@ -632,10 +741,10 @@
     .crop-inline-input {
       width: 62px;
       height: 26px;
-      background: #1E293B;
-      border: 1px solid #475569;
+      background: var(--bg-input);
+      border: 1px solid var(--border-default);
       border-radius: 5px;
-      color: #F8FAFC;
+      color: var(--text-primary);
       font-family: var(--font-mono);
       font-size: 11.5px;
       padding: 0 6px;
@@ -650,12 +759,12 @@
       display: flex;
       align-items: center;
       gap: 6px;
-      background: rgba(17, 24, 39, 0.92);
+      background: var(--bg-hud);
       backdrop-filter: blur(10px);
       border: 1px solid var(--border-default);
       padding: 5px 10px;
       border-radius: 10px;
-      box-shadow: 0 8px 24px rgba(0, 0, 0, 0.4);
+      box-shadow: 0 8px 24px rgba(0, 0, 0, 0.2);
       z-index: 25;
     }
 
@@ -663,13 +772,14 @@
       position: absolute;
       bottom: 16px;
       right: 16px;
-      background: rgba(17, 24, 39, 0.92);
+      background: var(--bg-hud);
       backdrop-filter: blur(10px);
       border: 1px solid var(--border-default);
       padding: 6px 12px;
       border-radius: 8px;
       font-size: 11.5px;
       color: var(--text-secondary);
+      box-shadow: 0 8px 24px rgba(0, 0, 0, 0.2);
       z-index: 25;
       display: flex;
       align-items: center;
@@ -678,7 +788,7 @@
 
     #svgDimensionsReadout {
       cursor: pointer;
-      color: #38BDF8;
+      color: var(--accent-text);
       font-weight: 600;
       font-family: var(--font-mono);
     }
@@ -691,8 +801,8 @@
     .dropzone-overlay {
       position: absolute;
       inset: 12px;
-      background: rgba(15, 23, 42, 0.92);
-      border: 2px dashed #38BDF8;
+      background: var(--bg-hud);
+      border: 2px dashed var(--border-focus);
       border-radius: 14px;
       display: none;
       flex-direction: column;
@@ -711,11 +821,11 @@
       position: absolute;
       display: none;
       z-index: 40;
-      background: #0F172A;
-      border: 2px solid #38BDF8;
+      background: var(--bg-panel);
+      border: 2px solid var(--border-focus);
       border-radius: 8px;
       padding: 6px 8px;
-      box-shadow: 0 12px 32px rgba(0, 0, 0, 0.5);
+      box-shadow: 0 12px 32px rgba(0, 0, 0, 0.35);
       min-width: 240px;
     }
 
@@ -751,12 +861,12 @@
 
     .inspector-tab:hover {
       color: var(--text-primary);
-      background: rgba(255, 255, 255, 0.04);
+      background: rgba(148, 163, 184, 0.08);
     }
 
     .inspector-tab.active {
       background: var(--bg-panel-elevated);
-      color: #38BDF8;
+      color: var(--accent-text);
       border-color: var(--border-default);
     }
 
@@ -861,7 +971,7 @@
     }
 
     .artboard-preset-btn:hover {
-      border-color: #38BDF8;
+      border-color: var(--border-focus);
       background: rgba(56, 189, 248, 0.1);
     }
 
@@ -892,7 +1002,7 @@
 
     .align-btn:hover {
       background: var(--bg-panel-elevated);
-      color: #FFFFFF;
+      color: var(--text-primary);
       border-color: var(--border-default);
     }
 
@@ -913,14 +1023,14 @@
     }
 
     .palette-card:hover {
-      border-color: #60A5FA;
-      background: rgba(30, 41, 59, 0.75);
+      border-color: var(--border-focus);
+      background: var(--bg-panel-elevated);
       transform: translateY(-1px);
     }
 
     .palette-card.active {
-      border-color: #38BDF8;
-      background: rgba(37, 99, 235, 0.16);
+      border-color: var(--border-focus);
+      background: rgba(37, 99, 235, 0.14);
       box-shadow: 0 0 0 1px rgba(56, 189, 248, 0.35);
     }
 
@@ -943,7 +1053,7 @@
       padding: 2px 6px;
       border-radius: 4px;
       background: rgba(56, 189, 248, 0.14);
-      color: #38BDF8;
+      color: var(--accent-text);
     }
 
     .palette-desc {
@@ -958,7 +1068,7 @@
       height: 18px;
       border-radius: 5px;
       overflow: hidden;
-      border: 1px solid rgba(255, 255, 255, 0.15);
+      border: 1px solid rgba(148, 163, 184, 0.25);
     }
 
     .palette-swatch-bar {
@@ -1007,13 +1117,18 @@
     }
 
     .role-series {
+      background: rgba(59, 130, 246, 0.16);
+      color: var(--accent-primary);
+    }
+
+    body:not(.light-theme) .role-series {
       background: rgba(59, 130, 246, 0.2);
       color: #93C5FD;
     }
 
     .role-neutral {
       background: rgba(148, 163, 184, 0.15);
-      color: #94A3B8;
+      color: var(--text-secondary);
     }
 
     .quick-swatch-grid {
@@ -1027,14 +1142,14 @@
       width: 22px;
       height: 22px;
       border-radius: 5px;
-      border: 1px solid rgba(255, 255, 255, 0.25);
+      border: 1px solid rgba(148, 163, 184, 0.45);
       cursor: pointer;
       transition: transform 0.1s;
     }
 
     .quick-swatch:hover {
       transform: scale(1.15);
-      border-color: #FFFFFF;
+      border-color: var(--border-focus);
     }
 
     .checkbox-row {
@@ -1056,7 +1171,7 @@
     .modal-backdrop {
       position: fixed;
       inset: 0;
-      background: rgba(5, 8, 16, 0.78);
+      background: rgba(5, 8, 16, 0.65);
       backdrop-filter: blur(6px);
       display: none;
       align-items: center;
@@ -1078,7 +1193,7 @@
       max-height: 90vh;
       display: flex;
       flex-direction: column;
-      box-shadow: 0 25px 70px rgba(0, 0, 0, 0.65);
+      box-shadow: 0 25px 70px rgba(0, 0, 0, 0.45);
       overflow: hidden;
     }
 
@@ -1119,8 +1234,8 @@
     .code-area {
       width: 100%;
       height: 400px;
-      background: #070B14;
-      color: #E2E8F0;
+      background: var(--bg-code);
+      color: var(--text-code);
       border: 1px solid var(--border-default);
       border-radius: 8px;
       padding: 14px;
@@ -1151,12 +1266,12 @@
     }
 
     .png-preset-card:hover {
-      border-color: #60A5FA;
+      border-color: var(--border-focus);
     }
 
     .png-preset-card.active {
-      border-color: #38BDF8;
-      background: rgba(37, 99, 235, 0.2);
+      border-color: var(--border-focus);
+      background: rgba(37, 99, 235, 0.15);
     }
 
     .toast-notification {
@@ -1164,14 +1279,14 @@
       bottom: 24px;
       left: 50%;
       transform: translateX(-50%) translateY(20px);
-      background: #0F172A;
-      color: #F8FAFC;
-      border: 1px solid #38BDF8;
+      background: var(--bg-panel);
+      color: var(--text-primary);
+      border: 1px solid var(--border-focus);
       padding: 9px 18px;
       border-radius: 999px;
       font-size: 12.5px;
       font-weight: 600;
-      box-shadow: 0 12px 30px rgba(0, 0, 0, 0.5);
+      box-shadow: 0 12px 30px rgba(0, 0, 0, 0.35);
       opacity: 0;
       pointer-events: none;
       transition: all 0.22s ease;
@@ -1242,8 +1357,13 @@
       </button>
     </div>
 
-    <!-- Export Suite -->
+    <!-- Theme Toggle & Export Suite -->
     <div class="toolbar-right">
+      <button class="btn" id="btnToggleTheme" title="Switch between Dark Mode and Light Mode">
+        <span id="themeToggleIcon">☀️</span>
+        <span id="themeToggleLabel">Light Mode</span>
+      </button>
+      <div class="toolbar-divider"></div>
       <button class="btn btn-primary" id="btnOpenPngModal" title="Export as High-DPI PNG (1x, 2x, 3x, 4x)">
         <span>🖼 Export as PNG</span>
       </button>
@@ -1284,7 +1404,7 @@
         <div style="display:flex; align-items:center; gap:6px;">
           <button class="btn btn-sm" id="btnSelectParentGroup" style="display:none;">↑ Select Parent Group (&lt;g&gt;)</button>
           <button class="btn btn-sm" id="btnDuplicateEl" style="display:none;">Duplicate</button>
-          <button class="btn btn-sm" id="btnDeleteEl" style="display:none; color:#FDA4AF; border-color:#881337;">Delete</button>
+          <button class="btn btn-sm" id="btnDeleteEl" style="display:none; color:#F43F5E; border-color:#F43F5E;">Delete</button>
         </div>
       </div>
 
@@ -1294,10 +1414,10 @@
         <div class="empty-canvas-state" id="emptyCanvasState">
           <div class="empty-canvas-card">
             <div style="font-size:44px; margin-bottom:12px;">📂</div>
-            <div style="font-size:17px; font-weight:700; color:#F8FAFC; margin-bottom:6px;">
+            <div style="font-size:17px; font-weight:700; color:var(--text-primary); margin-bottom:6px;">
               Import an SVG to Start Editing
             </div>
-            <div style="font-size:12.5px; color:#94A3B8; line-height:1.5; margin-bottom:20px;">
+            <div style="font-size:12.5px; color:var(--text-secondary); line-height:1.5; margin-bottom:20px;">
               Drag &amp; drop any <code>.svg</code> file onto this window, select a file from your computer, or paste raw SVG XML code.
             </div>
             <div style="display:flex; align-items:center; justify-content:center; gap:10px; flex-wrap:wrap;">
@@ -1321,7 +1441,7 @@
 
         <!-- Floating Interactive Crop / Artboard Bar -->
         <div class="crop-floating-bar" id="cropFloatingBar">
-          <span style="font-weight:700; color:#38BDF8;">✂️ Crop / Resize Artboard:</span>
+          <span style="font-weight:700; color:var(--accent-text);">✂️ Crop / Resize Artboard:</span>
           <label style="color:var(--text-secondary);">X <input type="number" id="cropBarX" class="crop-inline-input" step="1" /></label>
           <label style="color:var(--text-secondary);">Y <input type="number" id="cropBarY" class="crop-inline-input" step="1" /></label>
           <label style="color:var(--text-secondary);">W <input type="number" id="cropBarW" class="crop-inline-input" step="1" min="20" /></label>
@@ -1333,15 +1453,15 @@
 
         <!-- Inline Floating Text Editor -->
         <div class="inline-text-editor" id="inlineTextEditor">
-          <div style="font-size:10.5px; font-weight:700; color:#38BDF8; margin-bottom:4px;">DIRECT LABEL EDITOR (Enter to apply, Esc to close)</div>
-          <input type="text" id="inlineTextInput" class="input-text" />
+          <div style="font-size:10.5px; font-weight:700; color:var(--accent-text); margin-bottom:4px;">DIRECT LABEL EDITOR (Enter to apply, Shift+Enter for newline, Esc to close)</div>
+          <textarea id="inlineTextInput" class="input-textarea" rows="2"></textarea>
         </div>
 
         <!-- Drag & Drop Overlay -->
         <div class="dropzone-overlay" id="dropzoneOverlay">
           <div style="font-size:42px; margin-bottom:10px;">📥</div>
-          <div style="font-size:18px; font-weight:700; color:#F8FAFC;">Drop your SVG file here to load</div>
-          <div style="font-size:13px; color:#94A3B8; margin-top:4px;">Supports any vector chart, diagram, illustration, or figure (.svg)</div>
+          <div style="font-size:18px; font-weight:700; color:var(--text-primary);">Drop your SVG file here to load</div>
+          <div style="font-size:13px; color:var(--text-secondary); margin-top:4px;">Supports any vector chart, diagram, illustration, or figure (.svg)</div>
         </div>
       </div>
 
@@ -1386,7 +1506,7 @@
             </div>
           </div>
 
-          <div style="background:rgba(15,23,42,0.65); border:1px solid var(--border-subtle); border-radius:8px; padding:8px 10px; margin-bottom:10px;">
+          <div style="background:var(--bg-card-subtle); border:1px solid var(--border-subtle); border-radius:8px; padding:8px 10px; margin-bottom:10px;">
             <label class="checkbox-row" title="Automatically preserves canvas/card backgrounds (#FFFFFF, #F8FAFC) and text/gridline neutrals (#0F172A, #334155, #64748B) when applying a palette">
               <input type="checkbox" id="chkSmartPreserveNeutrals" checked />
               <span>Preserve backgrounds, gridlines &amp; text neutrals</span>
@@ -1454,11 +1574,19 @@
         <div class="inspector-section" id="inspTextSection">
           <div class="section-title">
             <span>Direct Text / Label Editing</span>
-            <span style="font-size:10px; color:#38BDF8;">Live Sync</span>
+            <span style="font-size:10px; color:var(--accent-text);">Live Sync</span>
           </div>
           <div class="prop-field" style="margin-bottom:8px;">
-            <label class="prop-label">Label Text Content</label>
-            <input type="text" id="inspTextContent" class="input-text" placeholder="Select a &lt;text&gt; element or group..." />
+            <label class="prop-label">Label Text Content (Press Enter for new line)</label>
+            <textarea id="inspTextContent" class="input-textarea" rows="2" placeholder="Select a &lt;text&gt; element or group..."></textarea>
+          </div>
+          <div class="prop-field" style="margin-bottom:8px;">
+            <label class="prop-label">Text Colour</label>
+            <div class="color-input-row">
+              <input type="color" id="inspTextColorPicker" value="#0F172A" title="Change text colour" />
+              <input type="text" id="inspTextColorHex" class="input-text" value="#0F172A" style="font-family:var(--font-mono);" />
+              <div id="inspTextQuickSwatches" style="display:flex; gap:4px; align-items:center;"></div>
+            </div>
           </div>
           <div class="prop-grid">
             <div class="prop-field">
@@ -1485,7 +1613,7 @@
           <div class="prop-grid-3">
             <div class="prop-field">
               <label class="prop-label">Font Size (px)</label>
-              <input type="number" id="inspFontSize" class="input-text" step="0.5" min="6" max="120" />
+              <input type="number" id="inspFontSize" class="input-text" step="0.5" min="6" max="240" />
             </div>
             <div class="prop-field">
               <label class="prop-label">Text Anchor</label>
@@ -1500,6 +1628,22 @@
               <input type="number" id="inspLetterSpacing" class="input-text" step="0.1" value="0" />
             </div>
           </div>
+          <div class="prop-grid" style="margin-top:6px; align-items:flex-end;">
+            <div class="prop-field">
+              <label class="prop-label" title="Drag the cyan left/right handles on the text bounding box or enter a pixel width to auto-wrap text">Text Wrap Width (px)</label>
+              <div style="display:flex; gap:5px;">
+                <input type="number" id="inspTextWrapWidth" class="input-text" min="20" max="4000" step="5" placeholder="Auto (No wrap)" />
+                <button class="btn btn-sm" id="btnClearTextWrap" title="Remove text wrap constraint">Unwrap</button>
+              </div>
+            </div>
+            <div class="prop-field">
+              <label class="prop-label">Line Height (em)</label>
+              <input type="number" id="inspTextLineHeight" class="input-text" min="0.8" max="3.0" step="0.05" value="1.25" />
+            </div>
+          </div>
+          <div style="font-size:10.5px; color:var(--text-muted); margin-top:4px; line-height:1.35;">
+            💡 Drag corner handles on canvas to resize font size, or drag cyan side handles to wrap text.
+          </div>
         </div>
 
         <!-- Fill & Stroke Styling -->
@@ -1509,7 +1653,7 @@
           </div>
           <div class="prop-grid">
             <div class="prop-field">
-              <label class="prop-label">Fill Colour</label>
+              <label class="prop-label">Fill / Text Colour</label>
               <div class="color-input-row">
                 <input type="color" id="inspFillPicker" value="#3B82F6" />
                 <input type="text" id="inspFillHex" class="input-text" value="#3B82F6" style="font-family:var(--font-mono);" />
@@ -1523,7 +1667,7 @@
           </div>
 
           <div class="prop-field" style="margin-bottom:10px;">
-            <label class="prop-label">Quick Palette Swatches (Click to assign Fill, Shift+Click for Stroke)</label>
+            <label class="prop-label">Quick Palette Swatches (Click to assign Fill/Text, Shift+Click for Stroke)</label>
             <div id="inspQuickSwatches" class="quick-swatch-grid"></div>
           </div>
 
@@ -1577,11 +1721,11 @@
           </div>
           <div class="prop-grid">
             <div class="prop-field">
-              <label class="prop-label">Width (rect)</label>
+              <label class="prop-label">Width / Span X (px)</label>
               <input type="number" id="inspWidth" class="input-text" step="1" />
             </div>
             <div class="prop-field">
-              <label class="prop-label">Height (rect)</label>
+              <label class="prop-label">Height / Span Y (px)</label>
               <input type="number" id="inspHeight" class="input-text" step="1" />
             </div>
           </div>
@@ -1640,7 +1784,7 @@
             </div>
           </div>
 
-          <div style="background:rgba(15,23,42,0.65); border:1px solid var(--border-subtle); border-radius:8px; padding:8px 10px; margin:8px 0 10px 0;">
+          <div style="background:var(--bg-card-subtle); border:1px solid var(--border-subtle); border-radius:8px; padding:8px 10px; margin:8px 0 10px 0;">
             <label class="checkbox-row">
               <input type="checkbox" id="chkLockArtboardAspect" />
               <span>Lock aspect ratio when resizing width/height</span>
@@ -1676,35 +1820,35 @@
           <div class="artboard-preset-grid">
             <button class="artboard-preset-btn" data-preset-w="1200" data-preset-h="580">
               <div style="font-weight:700; font-size:11.5px;">Inline Figure</div>
-              <div style="font-size:10px; color:#38BDF8; font-family:var(--font-mono);">1200 × 580 px</div>
+              <div style="font-size:10px; color:var(--accent-text); font-family:var(--font-mono);">1200 × 580 px</div>
             </button>
             <button class="artboard-preset-btn" data-preset-w="1920" data-preset-h="1080">
               <div style="font-weight:700; font-size:11.5px;">16:9 Presentation</div>
-              <div style="font-size:10px; color:#38BDF8; font-family:var(--font-mono);">1920 × 1080 px</div>
+              <div style="font-size:10px; color:var(--accent-text); font-family:var(--font-mono);">1920 × 1080 px</div>
             </button>
             <button class="artboard-preset-btn" data-preset-w="1600" data-preset-h="900">
               <div style="font-weight:700; font-size:11.5px;">16:9 Widescreen</div>
-              <div style="font-size:10px; color:#38BDF8; font-family:var(--font-mono);">1600 × 900 px</div>
+              <div style="font-size:10px; color:var(--accent-text); font-family:var(--font-mono);">1600 × 900 px</div>
             </button>
             <button class="artboard-preset-btn" data-preset-w="1200" data-preset-h="900">
               <div style="font-weight:700; font-size:11.5px;">4:3 Report</div>
-              <div style="font-size:10px; color:#38BDF8; font-family:var(--font-mono);">1200 × 900 px</div>
+              <div style="font-size:10px; color:var(--accent-text); font-family:var(--font-mono);">1200 × 900 px</div>
             </button>
             <button class="artboard-preset-btn" data-preset-w="1080" data-preset-h="1080">
               <div style="font-weight:700; font-size:11.5px;">1:1 Square</div>
-              <div style="font-size:10px; color:#38BDF8; font-family:var(--font-mono);">1080 × 1080 px</div>
+              <div style="font-size:10px; color:var(--accent-text); font-family:var(--font-mono);">1080 × 1080 px</div>
             </button>
             <button class="artboard-preset-btn" data-preset-w="1123" data-preset-h="794">
               <div style="font-weight:700; font-size:11.5px;">A4 Landscape</div>
-              <div style="font-size:10px; color:#38BDF8; font-family:var(--font-mono);">1123 × 794 px</div>
+              <div style="font-size:10px; color:var(--accent-text); font-family:var(--font-mono);">1123 × 794 px</div>
             </button>
             <button class="artboard-preset-btn" data-preset-w="794" data-preset-h="1123">
               <div style="font-weight:700; font-size:11.5px;">A4 Portrait</div>
-              <div style="font-size:10px; color:#38BDF8; font-family:var(--font-mono);">794 × 1123 px</div>
+              <div style="font-size:10px; color:var(--accent-text); font-family:var(--font-mono);">794 × 1123 px</div>
             </button>
             <button class="artboard-preset-btn" data-preset-w="800" data-preset-h="600">
               <div style="font-weight:700; font-size:11.5px;">Compact Web</div>
-              <div style="font-size:10px; color:#38BDF8; font-family:var(--font-mono);">800 × 600 px</div>
+              <div style="font-size:10px; color:var(--accent-text); font-family:var(--font-mono);">800 × 600 px</div>
             </button>
           </div>
         </div>
@@ -1725,24 +1869,24 @@
         </div>
         <div class="png-preset-grid" id="pngScaleGrid">
           <div class="png-preset-card" data-scale="1">
-            <div style="font-size:16px; font-weight:800; color:#F8FAFC;">1x</div>
+            <div style="font-size:16px; font-weight:800; color:var(--text-primary);">1x</div>
             <div style="font-size:10.5px; color:var(--text-secondary); margin-top:2px;">Standard Web</div>
-            <div class="png-dim-label" data-scale-dim="1" style="font-size:10px; color:#38BDF8; margin-top:4px; font-family:var(--font-mono);">1200×580</div>
+            <div class="png-dim-label" data-scale-dim="1" style="font-size:10px; color:var(--accent-text); margin-top:4px; font-family:var(--font-mono);">1200×580</div>
           </div>
           <div class="png-preset-card active" data-scale="2">
-            <div style="font-size:16px; font-weight:800; color:#F8FAFC;">2x</div>
+            <div style="font-size:16px; font-weight:800; color:var(--text-primary);">2x</div>
             <div style="font-size:10.5px; color:var(--text-secondary); margin-top:2px;">Retina Slides</div>
-            <div class="png-dim-label" data-scale-dim="2" style="font-size:10px; color:#38BDF8; margin-top:4px; font-family:var(--font-mono);">2400×1160</div>
+            <div class="png-dim-label" data-scale-dim="2" style="font-size:10px; color:var(--accent-text); margin-top:4px; font-family:var(--font-mono);">2400×1160</div>
           </div>
           <div class="png-preset-card" data-scale="3">
-            <div style="font-size:16px; font-weight:800; color:#F8FAFC;">3x</div>
+            <div style="font-size:16px; font-weight:800; color:var(--text-primary);">3x</div>
             <div style="font-size:10.5px; color:var(--text-secondary); margin-top:2px;">Print Report</div>
-            <div class="png-dim-label" data-scale-dim="3" style="font-size:10px; color:#38BDF8; margin-top:4px; font-family:var(--font-mono);">3600×1740</div>
+            <div class="png-dim-label" data-scale-dim="3" style="font-size:10px; color:var(--accent-text); margin-top:4px; font-family:var(--font-mono);">3600×1740</div>
           </div>
           <div class="png-preset-card" data-scale="4">
-            <div style="font-size:16px; font-weight:800; color:#F8FAFC;">4x</div>
+            <div style="font-size:16px; font-weight:800; color:var(--text-primary);">4x</div>
             <div style="font-size:10.5px; color:var(--text-secondary); margin-top:2px;">Ultra-HD 300DPI</div>
-            <div class="png-dim-label" data-scale-dim="4" style="font-size:10px; color:#38BDF8; margin-top:4px; font-family:var(--font-mono);">4800×2320</div>
+            <div class="png-dim-label" data-scale-dim="4" style="font-size:10px; color:var(--accent-text); margin-top:4px; font-family:var(--font-mono);">4800×2320</div>
           </div>
         </div>
 
@@ -1789,19 +1933,19 @@
           <label class="prop-label">Render Resolution Scale</label>
           <div class="png-preset-grid" id="pdfScaleGrid" style="grid-template-columns: repeat(3, 1fr);">
             <div class="png-preset-card" data-pdf-scale="2">
-              <div style="font-size:15px; font-weight:800; color:#F8FAFC;">2x</div>
+              <div style="font-size:15px; font-weight:800; color:var(--text-primary);">2x</div>
               <div style="font-size:10.5px; color:var(--text-secondary); margin-top:2px;">150 DPI Standard</div>
-              <div class="pdf-dim-label" data-pdf-scale-dim="2" style="font-size:10px; color:#38BDF8; margin-top:4px; font-family:var(--font-mono);">2400×1160</div>
+              <div class="pdf-dim-label" data-pdf-scale-dim="2" style="font-size:10px; color:var(--accent-text); margin-top:4px; font-family:var(--font-mono);">2400×1160</div>
             </div>
             <div class="png-preset-card active" data-pdf-scale="3">
-              <div style="font-size:15px; font-weight:800; color:#F8FAFC;">3x</div>
+              <div style="font-size:15px; font-weight:800; color:var(--text-primary);">3x</div>
               <div style="font-size:10.5px; color:var(--text-secondary); margin-top:2px;">300 DPI Print</div>
-              <div class="pdf-dim-label" data-pdf-scale-dim="3" style="font-size:10px; color:#38BDF8; margin-top:4px; font-family:var(--font-mono);">3600×1740</div>
+              <div class="pdf-dim-label" data-pdf-scale-dim="3" style="font-size:10px; color:var(--accent-text); margin-top:4px; font-family:var(--font-mono);">3600×1740</div>
             </div>
             <div class="png-preset-card" data-pdf-scale="4">
-              <div style="font-size:15px; font-weight:800; color:#F8FAFC;">4x</div>
+              <div style="font-size:15px; font-weight:800; color:var(--text-primary);">4x</div>
               <div style="font-size:10.5px; color:var(--text-secondary); margin-top:2px;">Ultra-HD Archival</div>
-              <div class="pdf-dim-label" data-pdf-scale-dim="4" style="font-size:10px; color:#38BDF8; margin-top:4px; font-family:var(--font-mono);">4800×2320</div>
+              <div class="pdf-dim-label" data-pdf-scale-dim="4" style="font-size:10px; color:var(--accent-text); margin-top:4px; font-family:var(--font-mono);">4800×2320</div>
             </div>
           </div>
         </div>
@@ -1931,6 +2075,11 @@
       panX: 40,
       panY: 40,
       isDraggingElement: false,
+      isResizingElement: false,
+      resizeHandleId: null,
+      resizeTargetEl: null,
+      resizeStartParentPt: { x: 0, y: 0 },
+      resizeInitialState: null,
       isPanningCanvas: false,
       isMarqueeSelecting: false,
       marqueeStartViewportPt: { x: 0, y: 0 },
@@ -1956,7 +2105,8 @@
       paletteRotationOffset: 0,
       collapsedGroups: new Set(),
       pngExportScale: 2,
-      pdfExportScale: 3
+      pdfExportScale: 3,
+      theme: 'dark'
     };
 
     /*************************************************************************
@@ -2045,6 +2195,468 @@
         el.setAttribute('transform', current.replace(/translate\([^)]+\)/i, translateStr));
       } else {
         el.setAttribute('transform', (current ? current + ' ' : '') + translateStr);
+      }
+    }
+
+    function getElementScale(el) {
+      const transform = el.getAttribute('transform') || '';
+      const match = transform.match(/scale\(\s*([-\d.]+)(?:[\s,]+([-\d.]+))?\s*\)/i);
+      if (match) {
+        const sx = parseFloat(match[1]) || 1;
+        const sy = match[2] !== undefined ? (parseFloat(match[2]) || 1) : sx;
+        return { sx, sy, hasScale: true };
+      }
+      return { sx: 1, sy: 1, hasScale: false };
+    }
+
+    function setElementTranslateAndScale(el, tx, ty, sx, sy) {
+      setElementTranslate(el, tx, ty);
+      const current = el.getAttribute('transform') || '';
+      const scaleStr = `scale(${Math.round(sx * 10000) / 10000}, ${Math.round(sy * 10000) / 10000})`;
+      if (/scale\([^)]+\)/i.test(current)) {
+        el.setAttribute('transform', current.replace(/scale\([^)]+\)/i, scaleStr));
+      } else {
+        el.setAttribute('transform', (current ? current + ' ' : '') + scaleStr);
+      }
+    }
+
+    function clientToElementParentPoint(el, clientX, clientY) {
+      if (!state.svgRoot) return { x: 0, y: 0 };
+      const parent = (el && el.parentElement && el.parentElement.getScreenCTM) ? el.parentElement : state.svgRoot;
+      const pt = state.svgRoot.createSVGPoint();
+      pt.x = clientX;
+      pt.y = clientY;
+      const ctm = parent.getScreenCTM() || state.svgRoot.getScreenCTM();
+      if (!ctm) return { x: 0, y: 0 };
+      return pt.matrixTransform(ctm.inverse());
+    }
+
+    function elementLocalPointToViewportPoint(el, localX, localY) {
+      if (!state.svgRoot || !el) return { x: 0, y: 0 };
+      const viewport = document.getElementById('canvasViewport');
+      const vpRect = viewport.getBoundingClientRect();
+      const pt = state.svgRoot.createSVGPoint();
+      pt.x = localX;
+      pt.y = localY;
+      const ctm = (el.getScreenCTM && el.getScreenCTM()) || state.svgRoot.getScreenCTM();
+      if (!ctm) return { x: 0, y: 0 };
+      const screenPt = pt.matrixTransform(ctm);
+      return {
+        x: screenPt.x - vpRect.left,
+        y: screenPt.y - vpRect.top
+      };
+    }
+
+    function clientToElementLocalPoint(el, clientX, clientY) {
+      if (!state.svgRoot) return { x: 0, y: 0 };
+      const target = (el && el.getScreenCTM) ? el : state.svgRoot;
+      const pt = state.svgRoot.createSVGPoint();
+      pt.x = clientX;
+      pt.y = clientY;
+      const ctm = target.getScreenCTM() || state.svgRoot.getScreenCTM();
+      if (!ctm) return { x: 0, y: 0 };
+      return pt.matrixTransform(ctm.inverse());
+    }
+
+    function resolveTextElement(el) {
+      if (!el || !el.tagName) return null;
+      const tag = el.tagName.toLowerCase();
+      if (tag === 'text') return el;
+      if (tag === 'tspan') return el.closest('text') || el;
+      if (tag === 'g') {
+        const shapeChildren = el.querySelectorAll('rect, circle, ellipse, line, polyline, polygon, path, image, use');
+        const textChildren = el.querySelectorAll(':scope > text');
+        if (shapeChildren.length === 0 && textChildren.length === 1) {
+          return textChildren[0];
+        }
+      }
+      return null;
+    }
+
+    function getEffectiveFontSize(el) {
+      const textEl = resolveTextElement(el) || el;
+      if (!textEl) return 12;
+      if (textEl.hasAttribute && textEl.hasAttribute('data-editor-fontsize')) {
+        const dfs = parseFloat(textEl.getAttribute('data-editor-fontsize'));
+        if (Number.isFinite(dfs) && dfs > 0) return dfs;
+      }
+      const firstTspan = textEl.querySelector ? textEl.querySelector('tspan') : null;
+      const sampleNode = firstTspan || textEl;
+
+      // 1. Prefer window.getComputedStyle on live DOM node (accurately resolves <style> classes, inline styles, pt/em/%, and inheritance)
+      try {
+        if (sampleNode && sampleNode.isConnected) {
+          const compFs = parseFloat(window.getComputedStyle(sampleNode).fontSize);
+          if (Number.isFinite(compFs) && compFs > 0) {
+            return Math.round(compFs * 100) / 100;
+          }
+        }
+      } catch (_) {}
+
+      // 2. Fallback to inline style or attribute on sampleNode / textEl
+      for (const node of [sampleNode, textEl]) {
+        if (!node) continue;
+        const inlineFs = (node.style && node.style.fontSize ? node.style.fontSize : '').trim();
+        if (inlineFs && !inlineFs.endsWith('%') && !inlineFs.endsWith('em')) {
+          const val = parseFloat(inlineFs);
+          if (Number.isFinite(val) && val > 0) return val;
+        }
+        const attrFs = (node.getAttribute && node.getAttribute('font-size') || '').trim();
+        if (attrFs && !attrFs.endsWith('%') && !attrFs.endsWith('em')) {
+          const val = parseFloat(attrFs);
+          if (Number.isFinite(val) && val > 0) return val;
+        }
+      }
+      return 12;
+    }
+
+    function getEffectiveFontWeight(el) {
+      const textEl = resolveTextElement(el) || el;
+      if (!textEl) return '400';
+      const firstTspan = textEl.querySelector ? textEl.querySelector('tspan') : null;
+      for (const node of [textEl, firstTspan]) {
+        if (!node) continue;
+        const fw = (node.style && node.style.fontWeight) || (node.getAttribute && node.getAttribute('font-weight'));
+        if (fw) return fw;
+      }
+      try {
+        const compFw = window.getComputedStyle(firstTspan || textEl).fontWeight;
+        if (compFw) return compFw;
+      } catch (_) {}
+      return '400';
+    }
+
+    function getEffectiveFontFamily(el) {
+      const textEl = resolveTextElement(el) || el;
+      if (!textEl) return 'sans-serif';
+      const firstTspan = textEl.querySelector ? textEl.querySelector('tspan') : null;
+      for (const node of [textEl, firstTspan]) {
+        if (!node) continue;
+        const ff = (node.style && node.style.fontFamily) || (node.getAttribute && node.getAttribute('font-family'));
+        if (ff) return ff;
+      }
+      try {
+        const compFf = window.getComputedStyle(firstTspan || textEl).fontFamily;
+        if (compFf) return compFf;
+      } catch (_) {}
+      return 'sans-serif';
+    }
+
+    function applyFontSizeToTextNode(textEl, newSizePx) {
+      if (!textEl) return;
+      const oldSize = getEffectiveFontSize(textEl);
+      const sizeVal = newSizePx < 10
+        ? Math.max(1, Math.round(newSizePx * 10) / 10)
+        : Math.max(1, Math.min(500, Math.round(newSizePx * 2) / 2));
+      if (!Number.isFinite(sizeVal)) return;
+
+      const scaleRatio = oldSize > 0 ? (sizeVal / oldSize) : 1;
+
+      textEl.setAttribute('data-editor-fontsize', String(sizeVal));
+      textEl.setAttribute('font-size', String(sizeVal));
+      if (textEl.style) {
+        textEl.style.setProperty('font-size', `${sizeVal}px`, 'important');
+      }
+
+      const tspans = Array.from(textEl.querySelectorAll('tspan'));
+      let firstY = null;
+      tspans.forEach((ts, idx) => {
+        ts.setAttribute('font-size', String(sizeVal));
+        if (ts.style) {
+          ts.style.setProperty('font-size', `${sizeVal}px`, 'important');
+        }
+        // Scale numeric pixel dy or multi-line y coordinates proportionally so lines don't collide
+        const dyAttr = (ts.getAttribute('dy') || '').trim();
+        if (dyAttr && !dyAttr.endsWith('em') && !dyAttr.endsWith('%')) {
+          const dyVal = parseFloat(dyAttr);
+          if (Number.isFinite(dyVal) && dyVal !== 0 && Math.abs(scaleRatio - 1) > 0.001) {
+            ts.setAttribute('dy', String(Math.round(dyVal * scaleRatio * 10) / 10));
+          }
+        }
+        if (ts.hasAttribute('y')) {
+          const yVal = parseFloat(ts.getAttribute('y'));
+          if (Number.isFinite(yVal)) {
+            if (idx === 0 || firstY === null) {
+              firstY = yVal;
+            } else if (Math.abs(scaleRatio - 1) > 0.001) {
+              const newY = firstY + (yVal - firstY) * scaleRatio;
+              ts.setAttribute('y', String(Math.round(newY * 10) / 10));
+            }
+          }
+        }
+      });
+    }
+
+    function setElementFontSize(el, newSizePx) {
+      if (!el) return;
+      const singleText = resolveTextElement(el);
+      if (singleText) {
+        applyFontSizeToTextNode(singleText, parseFloat(newSizePx));
+        return;
+      }
+      const textNodes = Array.from(el.querySelectorAll('text'));
+      textNodes.forEach(t => applyFontSizeToTextNode(t, parseFloat(newSizePx)));
+    }
+
+    let _textMeasureCanvas = null;
+    function measureTextWidthPx(text, fontSize, fontWeight, fontFamily, letterSpacing = 0) {
+      if (!_textMeasureCanvas) _textMeasureCanvas = document.createElement('canvas');
+      const ctx = _textMeasureCanvas.getContext('2d');
+      ctx.font = `${fontWeight || '400'} ${fontSize || 12}px ${fontFamily || 'sans-serif'}`;
+      const baseW = ctx.measureText(text).width;
+      const ls = parseFloat(letterSpacing) || 0;
+      return baseW + (ls && text.length > 1 ? (text.length - 1) * ls : 0);
+    }
+
+    function getTextRawContent(textEl) {
+      textEl = resolveTextElement(textEl) || textEl;
+      if (!textEl) return '';
+      if (textEl.hasAttribute('data-raw-text')) {
+        return textEl.getAttribute('data-raw-text');
+      }
+      const tspans = Array.from(textEl.querySelectorAll(':scope > tspan'));
+      if (tspans.length > 1) {
+        let out = '';
+        let prevY = null;
+        tspans.forEach((ts, idx) => {
+          const chunk = ts.textContent.replace(/\s+/g, ' ');
+          if (idx === 0) {
+            out += chunk.trim();
+          } else {
+            const dy = parseFloat(ts.getAttribute('dy') || '0');
+            const yAttr = ts.hasAttribute('y') ? parseFloat(ts.getAttribute('y')) : null;
+            const isNewLine = (Number.isFinite(dy) && Math.abs(dy) > 0.01) ||
+              (yAttr !== null && prevY !== null && Math.abs(yAttr - prevY) > 0.5);
+            out += (isNewLine ? '\n' : ' ') + chunk.trim();
+          }
+          if (ts.hasAttribute('y')) prevY = parseFloat(ts.getAttribute('y'));
+        });
+        return out;
+      }
+      return textEl.textContent.replace(/\s+/g, ' ').trim();
+    }
+
+    function wrapSvgTextElement(textEl, wrapWidthPx = undefined, lineHeightEm = undefined) {
+      textEl = resolveTextElement(textEl) || textEl;
+      if (!textEl || textEl.tagName.toLowerCase() !== 'text') return;
+
+      // Capture true rendered typography & position BEFORE modifying innerHTML
+      const fontSize = getEffectiveFontSize(textEl);
+      const fontWeight = getEffectiveFontWeight(textEl);
+      const fontFamily = getEffectiveFontFamily(textEl);
+      const letterSpacing = parseFloat(textEl.getAttribute('letter-spacing') || (textEl.style && textEl.style.letterSpacing) || '0') || 0;
+      const fillHex = getEffectiveFillHex(textEl);
+
+      const firstTspan = textEl.querySelector('tspan');
+      const baseX = textEl.getAttribute('x') || (firstTspan && firstTspan.getAttribute('x')) || '0';
+      const baseY = textEl.getAttribute('y') || (firstTspan && firstTspan.getAttribute('y')) || null;
+      const tspanClass = (!textEl.getAttribute('class') && firstTspan) ? firstTspan.getAttribute('class') : null;
+
+      if (!textEl.hasAttribute('x')) {
+        textEl.setAttribute('x', baseX);
+      }
+      if (!textEl.hasAttribute('y') && baseY !== null) {
+        textEl.setAttribute('y', baseY);
+      }
+      if (tspanClass && !textEl.getAttribute('class')) {
+        textEl.setAttribute('class', tspanClass);
+      }
+
+      const rawText = getTextRawContent(textEl);
+      textEl.setAttribute('data-raw-text', rawText);
+
+      let wrapW = wrapWidthPx !== undefined
+        ? parseFloat(wrapWidthPx)
+        : parseFloat(textEl.getAttribute('data-wrap-width') || '0');
+      if (!Number.isFinite(wrapW) || wrapW <= 0) wrapW = 0;
+
+      let lh = lineHeightEm !== undefined
+        ? parseFloat(lineHeightEm)
+        : parseFloat(textEl.getAttribute('data-line-height') || '1.25');
+      if (!Number.isFinite(lh) || lh <= 0.4) lh = 1.25;
+
+      if (wrapW > 0) {
+        textEl.setAttribute('data-wrap-width', String(Math.round(wrapW)));
+      } else {
+        textEl.removeAttribute('data-wrap-width');
+      }
+      textEl.setAttribute('data-line-height', String(lh));
+
+      // Lock exact current fontSize onto parent <text> so wrapping never changes font size
+      textEl.setAttribute('data-editor-fontsize', String(fontSize));
+      textEl.setAttribute('font-size', String(fontSize));
+      if (textEl.style) {
+        textEl.style.setProperty('font-size', `${fontSize}px`, 'important');
+      }
+
+      const paragraphs = rawText.split(/\r?\n/);
+      const finalLines = [];
+
+      paragraphs.forEach(para => {
+        if (!wrapW || wrapW <= 15) {
+          finalLines.push(para);
+          return;
+        }
+        if (!para.trim()) {
+          finalLines.push('');
+          return;
+        }
+        const words = para.split(/(\s+)/).filter(Boolean);
+        let currentLine = '';
+
+        const splitLongToken = (tok) => {
+          let charBuf = '';
+          for (const ch of tok) {
+            if (charBuf && measureTextWidthPx(charBuf + ch, fontSize, fontWeight, fontFamily, letterSpacing) > wrapW) {
+              finalLines.push(charBuf);
+              charBuf = ch;
+            } else {
+              charBuf += ch;
+            }
+          }
+          return charBuf;
+        };
+
+        words.forEach(token => {
+          const candidate = currentLine + token;
+          if (!currentLine.trim()) {
+            const trimmed = token.trim();
+            if (measureTextWidthPx(trimmed, fontSize, fontWeight, fontFamily, letterSpacing) > wrapW && trimmed.length > 1) {
+              currentLine = splitLongToken(trimmed);
+            } else {
+              currentLine = token.trimStart();
+            }
+          } else if (measureTextWidthPx(candidate, fontSize, fontWeight, fontFamily, letterSpacing) <= wrapW) {
+            currentLine = candidate;
+          } else if (token.trim()) {
+            finalLines.push(currentLine.trimEnd());
+            const trimmed = token.trim();
+            if (measureTextWidthPx(trimmed, fontSize, fontWeight, fontFamily, letterSpacing) > wrapW && trimmed.length > 1) {
+              currentLine = splitLongToken(trimmed);
+            } else {
+              currentLine = token.trimStart();
+            }
+          }
+        });
+        if (currentLine || finalLines.length === 0) {
+          finalLines.push(currentLine.trimEnd());
+        }
+      });
+
+      if (finalLines.length <= 1 && wrapW === 0) {
+        textEl.textContent = finalLines[0] !== undefined ? finalLines[0] : rawText;
+        if (fillHex) applyFillToSingleNode(textEl, fillHex);
+        return;
+      }
+
+      textEl.innerHTML = '';
+      finalLines.forEach((lineStr, idx) => {
+        const ts = document.createElementNS('http://www.w3.org/2000/svg', 'tspan');
+        ts.setAttribute('x', baseX);
+        ts.setAttribute('dy', idx === 0 ? '0' : `${lh}em`);
+        ts.setAttribute('font-size', String(fontSize));
+        if (ts.style) {
+          ts.style.setProperty('font-size', `${fontSize}px`, 'important');
+        }
+        if (fillHex) applyFillToSingleNode(ts, fillHex);
+        ts.textContent = lineStr || ' ';
+        textEl.appendChild(ts);
+      });
+      assignEditorIds(textEl);
+    }
+
+    function getEffectiveFillHex(el) {
+      if (!el) return null;
+      const direct = el.getAttribute('fill') || (el.style && el.style.fill);
+      if (direct && direct !== 'none') return normalizeHex(direct);
+      if (el.tagName && el.tagName.toLowerCase() === 'text') {
+        const tspan = el.querySelector('tspan[fill], tspan[style*="fill"]');
+        if (tspan) {
+          const tf = tspan.getAttribute('fill') || (tspan.style && tspan.style.fill);
+          if (tf && tf !== 'none') return normalizeHex(tf);
+        }
+      }
+      let parent = el.parentElement;
+      while (parent && parent !== state.svgRoot) {
+        const pf = parent.getAttribute('fill') || (parent.style && parent.style.fill);
+        if (pf && pf !== 'none') return normalizeHex(pf);
+        parent = parent.parentElement;
+      }
+      try {
+        const comp = window.getComputedStyle(el).fill;
+        if (comp && comp !== 'none') return normalizeHex(comp);
+      } catch (_) {}
+      return null;
+    }
+
+    function applyFillToSingleNode(node, colorVal) {
+      if (!node || !node.setAttribute) return;
+      node.setAttribute('fill', colorVal);
+      if (colorVal === 'none') {
+        if (node.style) node.style.fill = 'none';
+      } else if (node.style) {
+        node.style.fill = colorVal;
+        if (node.style.color) node.style.color = colorVal;
+      }
+    }
+
+    function setElementTextColor(el, colorVal) {
+      if (!el) return;
+      const tag = el.tagName.toLowerCase();
+      if (tag === 'text' || tag === 'tspan') {
+        applyFillToSingleNode(el, colorVal);
+        el.querySelectorAll('tspan').forEach(ts => applyFillToSingleNode(ts, colorVal));
+        return;
+      }
+      const textNodes = Array.from(el.querySelectorAll('text, tspan'));
+      if (textNodes.length > 0) {
+        textNodes.forEach(t => applyFillToSingleNode(t, colorVal));
+      } else {
+        setElementFillColor(el, colorVal);
+      }
+    }
+
+    function setElementFillColor(el, colorVal) {
+      if (!el) return;
+      const tag = el.tagName.toLowerCase();
+      if (tag === 'text' || tag === 'tspan') {
+        setElementTextColor(el, colorVal);
+        return;
+      }
+      applyFillToSingleNode(el, colorVal);
+      if (tag === 'g') {
+        const children = Array.from(el.querySelectorAll('text, tspan, rect, circle, ellipse, path, polygon, polyline, use'));
+        const hasNonTextShapes = children.some(c => !['text', 'tspan'].includes(c.tagName.toLowerCase()));
+        children.forEach(c => {
+          const cTag = c.tagName.toLowerCase();
+          if (cTag === 'text' || cTag === 'tspan') {
+            if (!hasNonTextShapes) applyFillToSingleNode(c, colorVal);
+          } else if (c.getAttribute('fill') !== 'none') {
+            applyFillToSingleNode(c, colorVal);
+          }
+        });
+      }
+    }
+
+    function applyTheme(themeName, notify = false) {
+      state.theme = themeName === 'light' ? 'light' : 'dark';
+      document.body.classList.toggle('light-theme', state.theme === 'light');
+      const iconEl = document.getElementById('themeToggleIcon');
+      const labelEl = document.getElementById('themeToggleLabel');
+      if (iconEl && labelEl) {
+        if (state.theme === 'light') {
+          iconEl.textContent = '🌙';
+          labelEl.textContent = 'Dark Mode';
+        } else {
+          iconEl.textContent = '☀️';
+          labelEl.textContent = 'Light Mode';
+        }
+      }
+      try {
+        localStorage.setItem('svg_studio_theme', state.theme);
+      } catch (_) {}
+      if (notify) {
+        showToast(state.theme === 'light' ? '☀️ Switched to Light Mode' : '🌙 Switched to Dark Mode');
       }
     }
 
@@ -2488,11 +3100,11 @@
 
       state.svgRoot.querySelectorAll('*').forEach(el => {
         if (el.tagName === 'stop') {
-          registerColor(el.getAttribute('stop-color'));
+          registerColor(el.getAttribute('stop-color') || (el.style && el.style.stopColor));
           return;
         }
-        const fill = el.getAttribute('fill');
-        const stroke = el.getAttribute('stroke');
+        const fill = el.getAttribute('fill') || (el.style && el.style.fill);
+        const stroke = el.getAttribute('stroke') || (el.style && el.style.stroke);
         if (fill) registerColor(fill);
         if (stroke && normalizeHex(stroke) !== '#CBD5E1') registerColor(stroke);
       });
@@ -2551,17 +3163,19 @@
           return;
         }
 
-        const fillHex = normalizeHex(el.getAttribute('fill'));
+        const fillHex = normalizeHex(el.getAttribute('fill') || (el.style && el.style.fill));
         if (fillHex && colorMap.has(fillHex)) {
-          if (!(preserveNeutrals && el.tagName === 'text' && NEUTRAL_TEXT_HEXES.has(fillHex))) {
-            el.setAttribute('fill', colorMap.get(fillHex));
+          const tagL = el.tagName.toLowerCase();
+          if (!(preserveNeutrals && (tagL === 'text' || tagL === 'tspan') && NEUTRAL_TEXT_HEXES.has(fillHex))) {
+            applyFillToSingleNode(el, colorMap.get(fillHex));
           }
         }
 
-        const strokeHex = normalizeHex(el.getAttribute('stroke'));
+        const strokeHex = normalizeHex(el.getAttribute('stroke') || (el.style && el.style.stroke));
         if (strokeHex && colorMap.has(strokeHex)) {
           if (!(strokeHex === '#CBD5E1' && !includeMutedGrey)) {
             el.setAttribute('stroke', colorMap.get(strokeHex));
+            if (el.style && el.style.stroke) el.style.stroke = colorMap.get(strokeHex);
           }
         }
       });
@@ -2619,14 +3233,16 @@
       if (!targetOld || !targetNew) return;
 
       state.svgRoot.querySelectorAll('*').forEach(el => {
-        if (normalizeHex(el.getAttribute('fill')) === targetOld) {
-          el.setAttribute('fill', targetNew);
+        if (normalizeHex(el.getAttribute('fill') || (el.style && el.style.fill)) === targetOld) {
+          applyFillToSingleNode(el, targetNew);
         }
-        if (normalizeHex(el.getAttribute('stroke')) === targetOld) {
+        if (normalizeHex(el.getAttribute('stroke') || (el.style && el.style.stroke)) === targetOld) {
           el.setAttribute('stroke', targetNew);
+          if (el.style && el.style.stroke) el.style.stroke = targetNew;
         }
-        if (el.tagName === 'stop' && normalizeHex(el.getAttribute('stop-color')) === targetOld) {
+        if (el.tagName === 'stop' && normalizeHex(el.getAttribute('stop-color') || (el.style && el.style.stopColor)) === targetOld) {
           el.setAttribute('stop-color', targetNew);
+          if (el.style && el.style.stopColor) el.style.stopColor = targetNew;
         }
       });
 
@@ -2678,9 +3294,10 @@
             state.selectedElements.forEach(el => {
               if (e.shiftKey) {
                 el.setAttribute('stroke', hex);
+                if (el.style && el.style.stroke) el.style.stroke = hex;
                 if (!el.getAttribute('stroke-width')) el.setAttribute('stroke-width', '1.5');
               } else {
-                el.setAttribute('fill', hex);
+                setElementFillColor(el, hex);
               }
             });
             pushHistorySnapshot();
@@ -2689,6 +3306,31 @@
             renderDocumentColorMap();
           });
           quickContainer.appendChild(sw);
+        });
+      }
+
+      const textSwatchContainer = document.getElementById('inspTextQuickSwatches');
+      if (textSwatchContainer) {
+        textSwatchContainer.innerHTML = '';
+        ['#0F172A', '#334155', '#64748B', '#FFFFFF', '#2563EB', '#0D9488', '#E11D48'].forEach(hex => {
+          const sw = document.createElement('div');
+          sw.className = 'quick-swatch';
+          sw.style.width = '18px';
+          sw.style.height = '18px';
+          sw.style.background = hex;
+          sw.title = `Set Text Colour ${hex}`;
+          sw.addEventListener('click', () => {
+            if (state.selectedElements.length === 0) {
+              showToast('Select a text element on the canvas first');
+              return;
+            }
+            state.selectedElements.forEach(el => setElementTextColor(el, hex));
+            pushHistorySnapshot();
+            updateInspectorUI();
+            renderLayerTree();
+            renderDocumentColorMap();
+          });
+          textSwatchContainer.appendChild(sw);
         });
       }
     }
@@ -2864,6 +3506,14 @@
         }
       } else {
         state.selectedElements = [el];
+      }
+
+      if (state.selectedElements.length > 0) {
+        const primary = state.selectedElements[0];
+        const tag = primary.tagName ? primary.tagName.toLowerCase() : '';
+        if (tag === 'text' || tag === 'tspan') {
+          switchRightTab('inspector');
+        }
       }
 
       renderBreadcrumb();
@@ -3120,6 +3770,103 @@
       return matched;
     }
 
+    function appendSvgTitle(el, text) {
+      const title = document.createElementNS('http://www.w3.org/2000/svg', 'title');
+      title.textContent = text;
+      el.appendChild(title);
+    }
+
+    function isPureTextGroupElement(el) {
+      if (!el || !el.tagName || el.tagName.toLowerCase() !== 'g') return false;
+      const shapes = el.querySelectorAll('rect, circle, ellipse, line, polyline, polygon, path, image, use');
+      const texts = el.querySelectorAll('text');
+      return shapes.length === 0 && texts.length >= 1;
+    }
+
+    function renderResizeHandlesOnBox(selLayer, bx, by, bw, bh, isTextElement = false) {
+      if (isTextElement) {
+        // 1. Offset cyan text-wrapping pill handles 10px outside the left/right edges so they NEVER overlap the 4 corner handles
+        const wrapHandles = [
+          { id: 'w', x: bx - 10, tickX1: bx - 7, tickX2: bx, y: by + bh / 2 },
+          { id: 'e', x: bx + bw + 10, tickX1: bx + bw, tickX2: bx + bw + 7, y: by + bh / 2 }
+        ];
+        wrapHandles.forEach(wh => {
+          const tick = document.createElementNS('http://www.w3.org/2000/svg', 'line');
+          tick.setAttribute('x1', wh.tickX1);
+          tick.setAttribute('y1', wh.y);
+          tick.setAttribute('x2', wh.tickX2);
+          tick.setAttribute('y2', wh.y);
+          tick.setAttribute('stroke', '#06B6D4');
+          tick.setAttribute('stroke-width', '1.5');
+          selLayer.appendChild(tick);
+
+          const wrapPill = document.createElementNS('http://www.w3.org/2000/svg', 'rect');
+          wrapPill.setAttribute('class', 'resize-handle-wrap');
+          wrapPill.setAttribute('x', wh.x - 3.5);
+          wrapPill.setAttribute('y', wh.y - 7);
+          wrapPill.setAttribute('width', '7');
+          wrapPill.setAttribute('height', '14');
+          wrapPill.setAttribute('rx', '3.5');
+          wrapPill.setAttribute('data-resize-handle', wh.id);
+          wrapPill.style.cursor = 'ew-resize';
+          appendSvgTitle(wrapPill, 'Drag left/right to wrap text width');
+          selLayer.appendChild(wrapPill);
+        });
+
+        // 2. Render the 4 corner handles (plus N/S if tall enough) on top for smooth font-size scaling
+        const cornerHandles = [
+          { id: 'nw', x: bx, y: by, cursor: 'nwse-resize' },
+          { id: 'ne', x: bx + bw, y: by, cursor: 'nesw-resize' },
+          { id: 'se', x: bx + bw, y: by + bh, cursor: 'nwse-resize' },
+          { id: 'sw', x: bx, y: by + bh, cursor: 'nesw-resize' }
+        ];
+        if (bh >= 26 && bw >= 36) {
+          cornerHandles.push(
+            { id: 'n', x: bx + bw / 2, y: by, cursor: 'ns-resize' },
+            { id: 's', x: bx + bw / 2, y: by + bh, cursor: 'ns-resize' }
+          );
+        }
+        cornerHandles.forEach(h => {
+          const handle = document.createElementNS('http://www.w3.org/2000/svg', 'rect');
+          handle.setAttribute('class', 'resize-handle');
+          handle.setAttribute('x', h.x - 4);
+          handle.setAttribute('y', h.y - 4);
+          handle.setAttribute('width', '8');
+          handle.setAttribute('height', '8');
+          handle.setAttribute('rx', '1.8');
+          handle.setAttribute('data-resize-handle', h.id);
+          handle.style.cursor = h.cursor;
+          appendSvgTitle(handle, 'Drag corner to scale text font size');
+          selLayer.appendChild(handle);
+        });
+        return;
+      }
+
+      const handles = [
+        { id: 'nw', x: bx, y: by, cursor: 'nwse-resize' },
+        { id: 'n', x: bx + bw / 2, y: by, cursor: 'ns-resize' },
+        { id: 'ne', x: bx + bw, y: by, cursor: 'nesw-resize' },
+        { id: 'e', x: bx + bw, y: by + bh / 2, cursor: 'ew-resize' },
+        { id: 'se', x: bx + bw, y: by + bh, cursor: 'nwse-resize' },
+        { id: 's', x: bx + bw / 2, y: by + bh, cursor: 'ns-resize' },
+        { id: 'sw', x: bx, y: by + bh, cursor: 'nesw-resize' },
+        { id: 'w', x: bx, y: by + bh / 2, cursor: 'ew-resize' }
+      ];
+
+      handles.forEach(h => {
+        const handle = document.createElementNS('http://www.w3.org/2000/svg', 'rect');
+        handle.setAttribute('class', 'resize-handle');
+        handle.setAttribute('x', h.x - 4);
+        handle.setAttribute('y', h.y - 4);
+        handle.setAttribute('width', '8');
+        handle.setAttribute('height', '8');
+        handle.setAttribute('rx', '1.8');
+        handle.setAttribute('data-resize-handle', h.id);
+        handle.style.cursor = h.cursor;
+        selLayer.appendChild(handle);
+      });
+    }
+
     function updateSelectionOverlay(activeSnapLines = []) {
       const selLayer = document.getElementById('selectionBoxLayer');
       const hovLayer = document.getElementById('hoverBoxLayer');
@@ -3156,48 +3903,68 @@
         maxX = Math.max(maxX, r.right);
         maxY = Math.max(maxY, r.bottom);
 
+        const bx = r.x - 3;
+        const by = r.y - 3;
+        const bw = Math.max(6, r.width + 6);
+        const bh = Math.max(6, r.height + 6);
+
         const rect = document.createElementNS('http://www.w3.org/2000/svg', 'rect');
         rect.setAttribute('class', 'selection-box');
-        rect.setAttribute('x', r.x - 3);
-        rect.setAttribute('y', r.y - 3);
-        rect.setAttribute('width', Math.max(6, r.width + 6));
-        rect.setAttribute('height', Math.max(6, r.height + 6));
+        rect.setAttribute('x', bx);
+        rect.setAttribute('y', by);
+        rect.setAttribute('width', bw);
+        rect.setAttribute('height', bh);
         rect.setAttribute('rx', '3');
         selLayer.appendChild(rect);
 
         if (state.selectedElements.length === 1) {
-          const corners = [
-            [r.x - 3, r.y - 3],
-            [r.x + r.width + 3, r.y - 3],
-            [r.x - 3, r.y + r.height + 3],
-            [r.x + r.width + 3, r.y + r.height + 3]
-          ];
-          corners.forEach(([cx, cy]) => {
-            const handle = document.createElementNS('http://www.w3.org/2000/svg', 'rect');
-            handle.setAttribute('class', 'resize-handle');
-            handle.setAttribute('x', cx - 3.5);
-            handle.setAttribute('y', cy - 3.5);
-            handle.setAttribute('width', '7');
-            handle.setAttribute('height', '7');
-            handle.setAttribute('rx', '1.5');
-            selLayer.appendChild(handle);
-          });
+          const tag = el.tagName.toLowerCase();
+          const isText = tag === 'text' || tag === 'tspan' || Boolean(resolveTextElement(el)) || isPureTextGroupElement(el);
+          renderResizeHandlesOnBox(selLayer, bx, by, bw, bh, isText);
+
+          // For <line> elements, also render draggable endpoint handles right on (x1,y1) and (x2,y2)
+          if (tag === 'line') {
+            const p1 = elementLocalPointToViewportPoint(
+              el,
+              parseFloat(el.getAttribute('x1') || '0'),
+              parseFloat(el.getAttribute('y1') || '0')
+            );
+            const p2 = elementLocalPointToViewportPoint(
+              el,
+              parseFloat(el.getAttribute('x2') || '0'),
+              parseFloat(el.getAttribute('y2') || '0')
+            );
+            [['line-p1', p1], ['line-p2', p2]].forEach(([id, pt]) => {
+              const c = document.createElementNS('http://www.w3.org/2000/svg', 'circle');
+              c.setAttribute('class', 'resize-handle-endpoint');
+              c.setAttribute('cx', pt.x);
+              c.setAttribute('cy', pt.y);
+              c.setAttribute('r', '5.5');
+              c.setAttribute('data-resize-handle', id);
+              selLayer.appendChild(c);
+            });
+          }
         }
       });
 
-      // Enclosing multi-selection group bounding box when 2+ elements are selected
+      // Enclosing multi-selection group bounding box + resize handles when 2+ elements are selected
       if (state.selectedElements.length > 1 && Number.isFinite(minX)) {
+        const gx = minX - 6;
+        const gy = minY - 6;
+        const gw = Math.max(8, (maxX - minX) + 12);
+        const gh = Math.max(8, (maxY - minY) + 12);
         const groupRect = document.createElementNS('http://www.w3.org/2000/svg', 'rect');
         groupRect.setAttribute('fill', 'none');
         groupRect.setAttribute('stroke', '#38BDF8');
         groupRect.setAttribute('stroke-width', '1.5');
         groupRect.setAttribute('stroke-dasharray', '5 3');
-        groupRect.setAttribute('x', minX - 6);
-        groupRect.setAttribute('y', minY - 6);
-        groupRect.setAttribute('width', Math.max(8, (maxX - minX) + 12));
-        groupRect.setAttribute('height', Math.max(8, (maxY - minY) + 12));
+        groupRect.setAttribute('x', gx);
+        groupRect.setAttribute('y', gy);
+        groupRect.setAttribute('width', gw);
+        groupRect.setAttribute('height', gh);
         groupRect.setAttribute('rx', '4');
         selLayer.appendChild(groupRect);
+        renderResizeHandlesOnBox(selLayer, gx, gy, gw, gh, false);
       }
 
       // Render live marquee selection box while dragging
@@ -3336,12 +4103,457 @@
       setElementTranslate(el, tr.x + svgDx, tr.y + svgDy);
     }
 
+    function computeResizedBox(initBox, handleId, dx, dy, minW = 4, minH = 4, lockAspect = false) {
+      let nx = initBox.x;
+      let ny = initBox.y;
+      let nw = initBox.width;
+      let nh = initBox.height;
+
+      if (handleId.includes('e')) {
+        nw = Math.max(minW, initBox.width + dx);
+      }
+      if (handleId.includes('s')) {
+        nh = Math.max(minH, initBox.height + dy);
+      }
+      if (handleId.includes('w')) {
+        const clampedDx = Math.min(dx, initBox.width - minW);
+        nx = initBox.x + clampedDx;
+        nw = Math.max(minW, initBox.width - clampedDx);
+      }
+      if (handleId.includes('n')) {
+        const clampedDy = Math.min(dy, initBox.height - minH);
+        ny = initBox.y + clampedDy;
+        nh = Math.max(minH, initBox.height - clampedDy);
+      }
+
+      if (lockAspect && initBox.height > 0) {
+        const ratio = initBox.width / initBox.height;
+        if (handleId === 'n' || handleId === 's') {
+          nw = Math.max(minW, nh * ratio);
+        } else {
+          const lockedH = Math.max(minH, nw / ratio);
+          if (handleId.includes('n')) {
+            ny = initBox.y + (initBox.height - lockedH);
+          }
+          nh = lockedH;
+        }
+      }
+
+      return { x: nx, y: ny, width: nw, height: nh };
+    }
+
+    function isCalloutGroupElement(el) {
+      if (!el || el.tagName.toLowerCase() !== 'g') return false;
+      const rects = Array.from(el.querySelectorAll(':scope > rect'));
+      const texts = Array.from(el.querySelectorAll(':scope > text'));
+      return rects.length === 1 && texts.length === 1 && el.children.length === 2;
+    }
+
+    function startElementResize(handleId, clientX, clientY) {
+      if (state.selectedElements.length === 0) return;
+      let targetEl = state.selectedElements[0];
+      const resolvedSingleText = resolveTextElement(targetEl);
+      if (resolvedSingleText) {
+        targetEl = resolvedSingleText;
+      }
+      if (targetEl.getAttribute('data-locked') === 'true' || Boolean(targetEl.closest('[data-locked="true"]'))) {
+        showToast('🔒 Element is locked in Layer Tree');
+        return;
+      }
+
+      state.isResizingElement = true;
+      state.resizeHandleId = handleId;
+      state.resizeTargetEl = targetEl;
+      state.resizeStartClient = { x: clientX, y: clientY };
+      state.resizeStartParentPt = clientToElementParentPoint(targetEl, clientX, clientY);
+
+      const tag = targetEl.tagName.toLowerCase();
+
+      if (state.selectedElements.length > 1) {
+        const startSvgPt = clientToSvgPoint(clientX, clientY);
+        const vpBoxes = state.selectedElements.map(el => getViewportRectForSvgElement(el));
+        const minVx = Math.min(...vpBoxes.map(b => b.x));
+        const minVy = Math.min(...vpBoxes.map(b => b.y));
+        const maxVx = Math.max(...vpBoxes.map(b => b.right));
+        const maxVy = Math.max(...vpBoxes.map(b => b.bottom));
+        const groupSvgW = Math.max(10, (maxVx - minVx) / state.zoom);
+        const groupSvgH = Math.max(10, (maxVy - minVy) / state.zoom);
+        state.resizeInitialState = {
+          kind: 'multi',
+          startSvgPt,
+          initBox: { x: 0, y: 0, width: groupSvgW, height: groupSvgH },
+          items: state.selectedElements.map(el => {
+            const tr = getElementTranslate(el);
+            const sc = getElementScale(el);
+            return { el, tx: tr.x, ty: tr.y, sx: sc.sx, sy: sc.sy };
+          })
+        };
+        return;
+      }
+
+      if (tag === 'rect') {
+        state.resizeInitialState = {
+          kind: 'rect',
+          box: {
+            x: parseFloat(targetEl.getAttribute('x') || '0'),
+            y: parseFloat(targetEl.getAttribute('y') || '0'),
+            width: Math.max(4, parseFloat(targetEl.getAttribute('width') || '10')),
+            height: Math.max(4, parseFloat(targetEl.getAttribute('height') || '10'))
+          }
+        };
+      } else if (tag === 'line') {
+        state.resizeInitialState = {
+          kind: 'line',
+          x1: parseFloat(targetEl.getAttribute('x1') || '0'),
+          y1: parseFloat(targetEl.getAttribute('y1') || '0'),
+          x2: parseFloat(targetEl.getAttribute('x2') || '0'),
+          y2: parseFloat(targetEl.getAttribute('y2') || '0')
+        };
+      } else if (tag === 'circle') {
+        const cx = parseFloat(targetEl.getAttribute('cx') || '0');
+        const cy = parseFloat(targetEl.getAttribute('cy') || '0');
+        const r = Math.max(2, parseFloat(targetEl.getAttribute('r') || '5'));
+        state.resizeInitialState = {
+          kind: 'circle',
+          cx, cy, r,
+          box: { x: cx - r, y: cy - r, width: r * 2, height: r * 2 }
+        };
+      } else if (tag === 'ellipse') {
+        const cx = parseFloat(targetEl.getAttribute('cx') || '0');
+        const cy = parseFloat(targetEl.getAttribute('cy') || '0');
+        const rx = Math.max(2, parseFloat(targetEl.getAttribute('rx') || '5'));
+        const ry = Math.max(2, parseFloat(targetEl.getAttribute('ry') || '5'));
+        state.resizeInitialState = {
+          kind: 'ellipse',
+          cx, cy, rx, ry,
+          box: { x: cx - rx, y: cy - ry, width: rx * 2, height: ry * 2 }
+        };
+      } else if (tag === 'text') {
+        let bBox = null;
+        try { bBox = targetEl.getBBox(); } catch (_) {}
+        const vpBox = getViewportRectForSvgElement(targetEl);
+        const boxW = (bBox && bBox.width > 2) ? bBox.width : Math.max(16, vpBox.width / state.zoom);
+        const boxH = (bBox && bBox.height > 2) ? bBox.height : Math.max(10, vpBox.height / state.zoom);
+        const fontSize = getEffectiveFontSize(targetEl);
+        const existingWrapW = parseFloat(targetEl.getAttribute('data-wrap-width') || '0');
+        const firstTspan = targetEl.querySelector('tspan');
+        const initX = parseFloat(targetEl.getAttribute('x') || (firstTspan && firstTspan.getAttribute('x')) || '0') || 0;
+        const initY = parseFloat(targetEl.getAttribute('y') || (firstTspan && firstTspan.getAttribute('y')) || '0') || 0;
+        const ctm = (targetEl.getScreenCTM && targetEl.getScreenCTM()) || state.svgRoot.getScreenCTM();
+        const ctmInv = ctm ? ctm.inverse() : null;
+        const startLocalPt = clientToElementLocalPoint(targetEl, clientX, clientY);
+        state.resizeInitialState = {
+          kind: 'text',
+          x: initX,
+          y: initY,
+          fontSize,
+          boxW,
+          boxH,
+          wrapW: existingWrapW > 0 ? existingWrapW : boxW,
+          hadWrapWidth: existingWrapW > 0,
+          ctmInv,
+          startLocalPt
+        };
+      } else if (isPureTextGroupElement(targetEl)) {
+        let bBox = null;
+        try { bBox = targetEl.getBBox(); } catch (_) {}
+        const vpBox = getViewportRectForSvgElement(targetEl);
+        const boxW = (bBox && bBox.width > 2) ? bBox.width : Math.max(24, vpBox.width / state.zoom);
+        const boxH = (bBox && bBox.height > 2) ? bBox.height : Math.max(12, vpBox.height / state.zoom);
+        const startLocalPt = clientToElementLocalPoint(targetEl, clientX, clientY);
+        const textItems = Array.from(targetEl.querySelectorAll('text')).map(t => {
+          const fs = getEffectiveFontSize(t);
+          const firstTs = t.querySelector('tspan');
+          const tx = parseFloat(t.getAttribute('x') || (firstTs && firstTs.getAttribute('x')) || '0') || 0;
+          const ty = parseFloat(t.getAttribute('y') || (firstTs && firstTs.getAttribute('y')) || '0') || 0;
+          const ew = parseFloat(t.getAttribute('data-wrap-width') || '0');
+          return { el: t, fontSize: fs, x: tx, y: ty, wrapW: ew > 0 ? ew : boxW, hadWrapWidth: ew > 0 };
+        });
+        const baseY0 = textItems.length > 0 ? textItems[0].y : 0;
+        state.resizeInitialState = {
+          kind: 'text-group',
+          boxW,
+          boxH,
+          baseY0,
+          startLocalPt,
+          textItems
+        };
+      } else if (isCalloutGroupElement(targetEl)) {
+        const rEl = targetEl.querySelector(':scope > rect');
+        const tEl = targetEl.querySelector(':scope > text');
+        state.resizeInitialState = {
+          kind: 'callout',
+          rectEl: rEl,
+          textEl: tEl,
+          rectBox: {
+            x: parseFloat(rEl.getAttribute('x') || '0'),
+            y: parseFloat(rEl.getAttribute('y') || '0'),
+            width: Math.max(20, parseFloat(rEl.getAttribute('width') || '100')),
+            height: Math.max(16, parseFloat(rEl.getAttribute('height') || '34'))
+          },
+          fontSize: tEl ? getEffectiveFontSize(tEl) : 12
+        };
+      } else if (tag === 'polyline' || tag === 'polygon') {
+        const rawPts = (targetEl.getAttribute('points') || '').trim();
+        const pairs = rawPts.split(/[\s,]+/).reduce((acc, val, i, arr) => {
+          if (i % 2 === 0 && arr[i + 1] !== undefined) {
+            acc.push([parseFloat(val) || 0, parseFloat(arr[i + 1]) || 0]);
+          }
+          return acc;
+        }, []);
+        const xs = pairs.map(p => p[0]);
+        const ys = pairs.map(p => p[1]);
+        const minX = xs.length ? Math.min(...xs) : 0;
+        const maxX = xs.length ? Math.max(...xs) : 10;
+        const minY = ys.length ? Math.min(...ys) : 0;
+        const maxY = ys.length ? Math.max(...ys) : 10;
+        state.resizeInitialState = {
+          kind: 'points',
+          pairs,
+          box: {
+            x: minX,
+            y: minY,
+            width: Math.max(2, maxX - minX),
+            height: Math.max(2, maxY - minY)
+          }
+        };
+      } else {
+        let localBox = { x: 0, y: 0, width: 100, height: 100 };
+        try {
+          const b = targetEl.getBBox();
+          if (b && (b.width > 0 || b.height > 0)) {
+            localBox = { x: b.x, y: b.y, width: Math.max(2, b.width), height: Math.max(2, b.height) };
+          }
+        } catch (_) {}
+        const tr = getElementTranslate(targetEl);
+        const sc = getElementScale(targetEl);
+        state.resizeInitialState = {
+          kind: 'bbox-transform',
+          localBox,
+          initTx: tr.x,
+          initTy: tr.y,
+          initSx: sc.sx,
+          initSy: sc.sy,
+          parentBox: {
+            x: tr.x + localBox.x * sc.sx,
+            y: tr.y + localBox.y * sc.sy,
+            width: Math.max(4, localBox.width * Math.abs(sc.sx)),
+            height: Math.max(4, localBox.height * Math.abs(sc.sy))
+          }
+        };
+      }
+    }
+
+    function applyElementResizeDrag(clientX, clientY, shiftKey = false) {
+      if (!state.isResizingElement || !state.resizeTargetEl || !state.resizeInitialState) return;
+      // Ignore pure clicks / sub-pixel mouse jitter so clicking a handle never mutates the element
+      if (state.resizeStartClient && Math.hypot(clientX - state.resizeStartClient.x, clientY - state.resizeStartClient.y) < 1.5) {
+        return;
+      }
+
+      const el = state.resizeTargetEl;
+      const handleId = state.resizeHandleId;
+      const init = state.resizeInitialState;
+
+      if (init.kind === 'multi') {
+        const curSvg = clientToSvgPoint(clientX, clientY);
+        const dx = curSvg.x - init.startSvgPt.x;
+        const dy = curSvg.y - init.startSvgPt.y;
+        const newBox = computeResizedBox(init.initBox, handleId, dx, dy, 10, 10, shiftKey);
+        const ratioX = newBox.width / Math.max(1, init.initBox.width);
+        const ratioY = newBox.height / Math.max(1, init.initBox.height);
+        init.items.forEach(item => {
+          setElementTranslateAndScale(item.el, item.tx + newBox.x, item.ty + newBox.y, item.sx * ratioX, item.sy * ratioY);
+        });
+        updateSelectionOverlay();
+        updateInspectorUI();
+        return;
+      }
+
+      const curPt = clientToElementParentPoint(el, clientX, clientY);
+      const dx = curPt.x - state.resizeStartParentPt.x;
+      const dy = curPt.y - state.resizeStartParentPt.y;
+      const round1 = v => Math.round(v * 10) / 10;
+
+      if (init.kind === 'rect') {
+        const nb = computeResizedBox(init.box, handleId, dx, dy, 4, 4, shiftKey);
+        el.setAttribute('x', String(round1(nb.x)));
+        el.setAttribute('y', String(round1(nb.y)));
+        el.setAttribute('width', String(round1(nb.width)));
+        el.setAttribute('height', String(round1(nb.height)));
+      } else if (init.kind === 'line') {
+        if (handleId === 'line-p1') {
+          el.setAttribute('x1', String(round1(init.x1 + dx)));
+          el.setAttribute('y1', String(round1(init.y1 + dy)));
+        } else if (handleId === 'line-p2') {
+          el.setAttribute('x2', String(round1(init.x2 + dx)));
+          el.setAttribute('y2', String(round1(init.y2 + dy)));
+        } else {
+          let nx1 = init.x1, ny1 = init.y1, nx2 = init.x2, ny2 = init.y2;
+          if (handleId.includes('e')) {
+            if (init.x2 >= init.x1) nx2 = init.x2 + dx;
+            else nx1 = init.x1 + dx;
+          }
+          if (handleId.includes('w')) {
+            if (init.x1 <= init.x2) nx1 = init.x1 + dx;
+            else nx2 = init.x2 + dx;
+          }
+          if (handleId.includes('s')) {
+            if (init.y2 >= init.y1) ny2 = init.y2 + dy;
+            else ny1 = init.y1 + dy;
+          }
+          if (handleId.includes('n')) {
+            if (init.y1 <= init.y2) ny1 = init.y1 + dy;
+            else ny2 = init.y2 + dy;
+          }
+          el.setAttribute('x1', String(round1(nx1)));
+          el.setAttribute('y1', String(round1(ny1)));
+          el.setAttribute('x2', String(round1(nx2)));
+          el.setAttribute('y2', String(round1(ny2)));
+        }
+      } else if (init.kind === 'circle') {
+        const nb = computeResizedBox(init.box, handleId, dx, dy, 4, 4, true);
+        const nr = Math.max(2, round1((handleId === 'n' || handleId === 's' ? nb.height : handleId === 'e' || handleId === 'w' ? nb.width : Math.max(nb.width, nb.height)) / 2));
+        el.setAttribute('cx', String(round1(nb.x + nb.width / 2)));
+        el.setAttribute('cy', String(round1(nb.y + nb.height / 2)));
+        el.setAttribute('r', String(nr));
+      } else if (init.kind === 'ellipse') {
+        const nb = computeResizedBox(init.box, handleId, dx, dy, 4, 4, shiftKey);
+        el.setAttribute('cx', String(round1(nb.x + nb.width / 2)));
+        el.setAttribute('cy', String(round1(nb.y + nb.height / 2)));
+        el.setAttribute('rx', String(round1(nb.width / 2)));
+        el.setAttribute('ry', String(round1(nb.height / 2)));
+      } else if (init.kind === 'text') {
+        let curLocalPt;
+        if (init.ctmInv && state.svgRoot) {
+          const pt = state.svgRoot.createSVGPoint();
+          pt.x = clientX;
+          pt.y = clientY;
+          curLocalPt = pt.matrixTransform(init.ctmInv);
+        } else {
+          curLocalPt = clientToElementLocalPoint(el, clientX, clientY);
+        }
+        const localDx = curLocalPt.x - init.startLocalPt.x;
+        const localDy = curLocalPt.y - init.startLocalPt.y;
+
+        if (handleId === 'e' || handleId === 'w') {
+          let newWrapW = init.wrapW;
+          if (handleId === 'e') {
+            newWrapW = Math.max(20, Math.round(init.wrapW + localDx));
+          } else {
+            const clampedDx = Math.min(localDx, init.wrapW - 20);
+            newWrapW = Math.max(20, Math.round(init.wrapW - clampedDx));
+            const anchor = el.getAttribute('text-anchor') || (el.style && el.style.textAnchor) || 'start';
+            if (anchor === 'start') {
+              const newX = round1(init.x + clampedDx);
+              el.setAttribute('x', String(newX));
+            }
+          }
+          wrapSvgTextElement(el, newWrapW);
+        } else {
+          const outX = handleId.includes('e') ? localDx : handleId.includes('w') ? -localDx : 0;
+          const outY = handleId.includes('s') ? localDy : handleId.includes('n') ? -localDy : 0;
+          const refW = Math.max(36, Math.min(init.boxW, init.fontSize * 7));
+          const refH = Math.max(32, init.boxH * 2.2);
+          const ratioX = outX / refW;
+          const ratioY = outY / refH;
+          const deltaRatio = (handleId === 'n' || handleId === 's')
+            ? ratioY
+            : (Math.abs(outX) >= Math.abs(outY) ? ratioX : ratioY);
+          const factor = Math.max(0.15, 1 + deltaRatio);
+          const newFontSize = init.fontSize * factor;
+          applyFontSizeToTextNode(el, newFontSize);
+          if (init.hadWrapWidth) {
+            const actualFs = getEffectiveFontSize(el);
+            const scaledWrap = Math.max(20, Math.round(init.wrapW * (actualFs / init.fontSize)));
+            wrapSvgTextElement(el, scaledWrap);
+          }
+        }
+      } else if (init.kind === 'text-group') {
+        const curLocalPt = clientToElementLocalPoint(el, clientX, clientY);
+        const localDx = curLocalPt.x - init.startLocalPt.x;
+        const localDy = curLocalPt.y - init.startLocalPt.y;
+        if (handleId === 'e' || handleId === 'w') {
+          const newWrapW = handleId === 'e'
+            ? Math.max(24, Math.round(init.boxW + localDx))
+            : Math.max(24, Math.round(init.boxW - localDx));
+          init.textItems.forEach(item => {
+            wrapSvgTextElement(item.el, newWrapW);
+          });
+        } else {
+          const outX = handleId.includes('e') ? localDx : handleId.includes('w') ? -localDx : 0;
+          const outY = handleId.includes('s') ? localDy : handleId.includes('n') ? -localDy : 0;
+          const avgFs = init.textItems.reduce((s, it) => s + it.fontSize, 0) / Math.max(1, init.textItems.length);
+          const refW = Math.max(40, Math.min(init.boxW, avgFs * 8));
+          const refH = Math.max(36, init.boxH * 1.8);
+          const deltaRatio = (handleId === 'n' || handleId === 's')
+            ? (outY / refH)
+            : (Math.abs(outX) >= Math.abs(outY) ? (outX / refW) : (outY / refH));
+          const factor = Math.max(0.2, 1 + deltaRatio);
+          init.textItems.forEach((item, idx) => {
+            applyFontSizeToTextNode(item.el, item.fontSize * factor);
+            if (idx > 0) {
+              const newY = round1(init.baseY0 + (item.y - init.baseY0) * factor);
+              item.el.setAttribute('y', String(newY));
+            }
+            if (item.hadWrapWidth) {
+              wrapSvgTextElement(item.el, Math.max(24, Math.round(item.wrapW * factor)));
+            }
+          });
+        }
+      } else if (init.kind === 'callout') {
+        const nb = computeResizedBox(init.rectBox, handleId, dx, dy, 32, 22, false);
+        init.rectEl.setAttribute('x', String(round1(nb.x)));
+        init.rectEl.setAttribute('y', String(round1(nb.y)));
+        init.rectEl.setAttribute('width', String(round1(nb.width)));
+        init.rectEl.setAttribute('height', String(round1(nb.height)));
+        if (init.textEl) {
+          if (shiftKey && ['nw', 'ne', 'se', 'sw'].includes(handleId)) {
+            const scaleF = nb.height / Math.max(1, init.rectBox.height);
+            applyFontSizeToTextNode(init.textEl, init.fontSize * scaleF);
+          }
+          const fs = getEffectiveFontSize(init.textEl);
+          const anchor = init.textEl.getAttribute('text-anchor') || 'middle';
+          const tx = anchor === 'middle' ? round1(nb.x + nb.width / 2) : round1(nb.x + 10);
+          init.textEl.setAttribute('x', String(tx));
+          wrapSvgTextElement(init.textEl, Math.max(20, nb.width - 16));
+          const lineCount = Math.max(1, init.textEl.querySelectorAll('tspan').length);
+          const totalTextH = (lineCount - 1) * fs * 1.25;
+          const startY = round1(nb.y + nb.height / 2 - totalTextH / 2 + fs * 0.35);
+          init.textEl.setAttribute('y', String(startY));
+          init.textEl.querySelectorAll('tspan').forEach(ts => ts.setAttribute('x', String(tx)));
+        }
+      } else if (init.kind === 'points') {
+        const nb = computeResizedBox(init.box, handleId, dx, dy, 4, 4, shiftKey);
+        const newPtsStr = init.pairs.map(([px, py]) => {
+          const rx = init.box.width > 0 ? (px - init.box.x) / init.box.width : 0;
+          const ry = init.box.height > 0 ? (py - init.box.y) / init.box.height : 0;
+          return `${round1(nb.x + rx * nb.width)},${round1(nb.y + ry * nb.height)}`;
+        }).join(' ');
+        el.setAttribute('points', newPtsStr);
+      } else if (init.kind === 'bbox-transform') {
+        const nb = computeResizedBox(init.parentBox, handleId, dx, dy, 6, 6, shiftKey);
+        const newSx = nb.width / Math.max(1, init.localBox.width);
+        const newSy = nb.height / Math.max(1, init.localBox.height);
+        const newTx = nb.x - init.localBox.x * newSx;
+        const newTy = nb.y - init.localBox.y * newSy;
+        setElementTranslateAndScale(el, newTx, newTy, newSx, newSy);
+      }
+
+      updateSelectionOverlay();
+      updateInspectorUI();
+    }
+
     /*************************************************************************
      * 12. INSPECTOR PANEL BINDING (TEXT, FILL, STROKE, GEOMETRY)
      *************************************************************************/
     function updateInspectorUI() {
       const tagBadge = document.getElementById('inspElementTagBadge');
       const textInput = document.getElementById('inspTextContent');
+      const textColorPicker = document.getElementById('inspTextColorPicker');
+      const textColorHex = document.getElementById('inspTextColorHex');
+      const textWrapWidth = document.getElementById('inspTextWrapWidth');
+      const textLineHeight = document.getElementById('inspTextLineHeight');
       const fontWeight = document.getElementById('inspFontWeight');
       const fontSize = document.getElementById('inspFontSize');
       const textAnchor = document.getElementById('inspTextAnchor');
@@ -3362,6 +4574,7 @@
       if (state.selectedElements.length === 0) {
         tagBadge.textContent = 'None Selected';
         textInput.value = '';
+        if (textWrapWidth) textWrapWidth.value = '';
         posX.value = '';
         posY.value = '';
         widthInput.value = '';
@@ -3375,20 +4588,36 @@
         ? `${state.selectedElements.length} Selected`
         : `<${tag}>`;
 
-      const textTarget = tag === 'text' ? el : el.querySelector('text');
+      const textTarget = resolveTextElement(el) || el.querySelector('text');
       if (textTarget) {
-        textInput.value = textTarget.textContent.trim();
-        fontWeight.value = textTarget.getAttribute('font-weight') || '400';
-        fontSize.value = parseFloat(textTarget.getAttribute('font-size') || '12');
-        textAnchor.value = textTarget.getAttribute('text-anchor') || 'start';
-        letterSpacing.value = parseFloat(textTarget.getAttribute('letter-spacing') || '0');
+        if (document.activeElement !== textInput) {
+          textInput.value = getTextRawContent(textTarget);
+        }
+        fontWeight.value = getEffectiveFontWeight(textTarget);
+        if (document.activeElement !== fontSize) {
+          fontSize.value = getEffectiveFontSize(textTarget);
+        }
+        textAnchor.value = textTarget.getAttribute('text-anchor') || (textTarget.style && textTarget.style.textAnchor) || 'start';
+        letterSpacing.value = parseFloat(textTarget.getAttribute('letter-spacing') || (textTarget.style && textTarget.style.letterSpacing) || '0');
+
+        if (textWrapWidth && document.activeElement !== textWrapWidth) {
+          textWrapWidth.value = textTarget.getAttribute('data-wrap-width') || '';
+        }
+        if (textLineHeight && document.activeElement !== textLineHeight) {
+          textLineHeight.value = textTarget.getAttribute('data-line-height') || '1.25';
+        }
+
+        const tHex = getEffectiveFillHex(textTarget) || '#0F172A';
+        if (textColorHex && document.activeElement !== textColorHex) textColorHex.value = tHex;
+        if (textColorPicker && tHex.startsWith('#') && tHex.length === 7) textColorPicker.value = tHex;
       } else {
         textInput.value = '';
+        if (textWrapWidth) textWrapWidth.value = '';
       }
 
-      const rawFill = el.getAttribute('fill') || (textTarget && textTarget.getAttribute('fill')) || '#3B82F6';
+      const rawFill = getEffectiveFillHex(el) || (textTarget && getEffectiveFillHex(textTarget)) || el.getAttribute('fill') || '#3B82F6';
       const normFill = normalizeHex(rawFill);
-      fillHex.value = rawFill;
+      if (document.activeElement !== fillHex) fillHex.value = normFill || rawFill;
       if (normFill && normFill.startsWith('#') && normFill.length === 7) {
         fillPicker.value = normFill;
       }
@@ -3406,16 +4635,34 @@
       cornerRadius.value = parseFloat(el.getAttribute('rx') || '0');
 
       const tr = getElementTranslate(el);
-      if (el.hasAttribute('x') || el.hasAttribute('cx')) {
-        posX.value = Math.round(parseFloat(el.getAttribute('x') || el.getAttribute('cx') || 0) + tr.x);
-        posY.value = Math.round(parseFloat(el.getAttribute('y') || el.getAttribute('cy') || 0) + tr.y);
+      if (el.hasAttribute('x') || el.hasAttribute('cx') || el.hasAttribute('x1')) {
+        posX.value = Math.round(parseFloat(el.getAttribute('x') || el.getAttribute('cx') || el.getAttribute('x1') || 0) + tr.x);
+        posY.value = Math.round(parseFloat(el.getAttribute('y') || el.getAttribute('cy') || el.getAttribute('y1') || 0) + tr.y);
       } else {
         posX.value = Math.round(tr.x);
         posY.value = Math.round(tr.y);
       }
 
-      widthInput.value = el.hasAttribute('width') ? Math.round(parseFloat(el.getAttribute('width'))) : '';
-      heightInput.value = el.hasAttribute('height') ? Math.round(parseFloat(el.getAttribute('height'))) : '';
+      if (document.activeElement !== widthInput && document.activeElement !== heightInput) {
+        if (el.hasAttribute('width')) {
+          widthInput.value = Math.round(parseFloat(el.getAttribute('width')));
+          heightInput.value = Math.round(parseFloat(el.getAttribute('height') || '0'));
+        } else if (tag === 'line') {
+          widthInput.value = Math.round(Math.abs(parseFloat(el.getAttribute('x2') || 0) - parseFloat(el.getAttribute('x1') || 0)));
+          heightInput.value = Math.round(Math.abs(parseFloat(el.getAttribute('y2') || 0) - parseFloat(el.getAttribute('y1') || 0)));
+        } else if (tag === 'circle') {
+          const d = Math.round(parseFloat(el.getAttribute('r') || 0) * 2);
+          widthInput.value = d;
+          heightInput.value = d;
+        } else if (tag === 'ellipse') {
+          widthInput.value = Math.round(parseFloat(el.getAttribute('rx') || 0) * 2);
+          heightInput.value = Math.round(parseFloat(el.getAttribute('ry') || 0) * 2);
+        } else {
+          const vpRect = getViewportRectForSvgElement(el);
+          widthInput.value = Math.round(vpRect.width / state.zoom);
+          heightInput.value = Math.round(vpRect.height / state.zoom);
+        }
+      }
     }
 
     /*************************************************************************
@@ -4006,8 +5253,18 @@
           return;
         }
 
+        // Check if clicking on an element Bounding Box Resize / Wrap / Endpoint Handle
+        const resizeHandleEl = e.target.closest && e.target.closest('[data-resize-handle]');
+        if (resizeHandleEl) {
+          const handleId = resizeHandleEl.getAttribute('data-resize-handle');
+          startElementResize(handleId, e.clientX, e.clientY);
+          return;
+        }
+
         let target = e.target;
-        if (target.tagName === 'tspan') target = target.parentElement;
+        if (target && target.tagName && target.tagName.toLowerCase() === 'tspan') {
+          target = target.closest('text') || target;
+        }
 
         const vpRect = viewport.getBoundingClientRect();
         const vpPt = { x: e.clientX - vpRect.left, y: e.clientY - vpRect.top };
@@ -4074,6 +5331,11 @@
           state.panX = e.clientX - state.dragStartClient.x;
           state.panY = e.clientY - state.dragStartClient.y;
           applyViewportTransform();
+          return;
+        }
+
+        if (state.isResizingElement) {
+          applyElementResizeDrag(e.clientX, e.clientY, e.shiftKey);
           return;
         }
 
@@ -4224,6 +5486,16 @@
       });
 
       window.addEventListener('mouseup', () => {
+        if (state.isResizingElement) {
+          state.isResizingElement = false;
+          state.resizeHandleId = null;
+          state.resizeTargetEl = null;
+          state.resizeInitialState = null;
+          pushHistorySnapshot();
+          renderLayerTree();
+          updateSelectionOverlay();
+          updateInspectorUI();
+        }
         if (state.isDraggingCrop) {
           state.isDraggingCrop = false;
           state.cropDragMode = null;
@@ -4389,57 +5661,167 @@
         renderDocumentColorMap();
       };
 
+      // Theme Toggle Button
+      document.getElementById('btnToggleTheme').addEventListener('click', () => {
+        applyTheme(state.theme === 'dark' ? 'light' : 'dark', true);
+      });
+
       document.getElementById('inspTextContent').addEventListener('input', (e) => {
         state.selectedElements.forEach(el => {
-          const t = el.tagName === 'text' ? el : el.querySelector('text');
-          if (t) t.textContent = e.target.value;
+          const t = resolveTextElement(el) || el.querySelector('text');
+          if (t) {
+            t.setAttribute('data-raw-text', e.target.value);
+            wrapSvgTextElement(t);
+          }
         });
         updateSelectionOverlay();
         renderLayerTree();
       });
       document.getElementById('inspTextContent').addEventListener('change', pushHistorySnapshot);
 
+      // Text Wrapping Width & Line Height Controls
+      document.getElementById('inspTextWrapWidth').addEventListener('input', (e) => {
+        let wrapVal = parseFloat(e.target.value) || 0;
+        applyToSelected(el => {
+          const t = resolveTextElement(el) || el.querySelector('text');
+          if (t) {
+            // If user clicked spinner when input was empty (starting at min=20), initialize to ~75% of current text width
+            if (!t.hasAttribute('data-wrap-width') && wrapVal === 20) {
+              let b = null;
+              try { b = t.getBBox(); } catch (_) {}
+              if (b && b.width > 50) {
+                wrapVal = Math.max(40, Math.round(b.width * 0.75));
+                e.target.value = String(wrapVal);
+              }
+            }
+            wrapSvgTextElement(t, wrapVal);
+          }
+        });
+      });
+      document.getElementById('btnClearTextWrap').addEventListener('click', () => {
+        document.getElementById('inspTextWrapWidth').value = '';
+        applyToSelected(el => {
+          const t = resolveTextElement(el) || el.querySelector('text');
+          if (t) {
+            t.removeAttribute('data-wrap-width');
+            wrapSvgTextElement(t, 0);
+          }
+        });
+        showToast('Unwrapped text to auto-width');
+      });
+      document.getElementById('inspTextLineHeight').addEventListener('input', (e) => {
+        const lh = parseFloat(e.target.value) || 1.25;
+        applyToSelected(el => {
+          const t = resolveTextElement(el) || el.querySelector('text');
+          if (t) wrapSvgTextElement(t, undefined, lh);
+        });
+      });
+
+      // Dedicated Text Colour Picker & Hex Input
+      document.getElementById('inspTextColorPicker').addEventListener('input', (e) => {
+        const hex = e.target.value.toUpperCase();
+        document.getElementById('inspTextColorHex').value = hex;
+        document.getElementById('inspFillHex').value = hex;
+        document.getElementById('inspFillPicker').value = hex;
+        applyToSelected(el => setElementTextColor(el, hex));
+      });
+      document.getElementById('inspTextColorHex').addEventListener('input', (e) => {
+        const val = e.target.value.trim();
+        const norm = normalizeHex(val);
+        if (norm && norm.startsWith('#') && norm.length === 7) {
+          document.getElementById('inspTextColorPicker').value = norm;
+          document.getElementById('inspFillPicker').value = norm;
+          document.getElementById('inspFillHex').value = norm;
+          applyToSelected(el => setElementTextColor(el, norm));
+        }
+      });
+      document.getElementById('inspTextColorHex').addEventListener('change', (e) => {
+        const val = e.target.value.trim();
+        if (val) {
+          applyToSelected(el => setElementTextColor(el, val));
+          updateInspectorUI();
+        }
+      });
+
       document.getElementById('inspFontFamily').addEventListener('change', (e) => {
         applyToSelected(el => {
-          const t = el.tagName === 'text' ? el : el.querySelector('text');
-          if (t) t.setAttribute('font-family', e.target.value);
+          const t = resolveTextElement(el);
+          const targets = t ? [t, ...t.querySelectorAll('tspan')] : Array.from(el.querySelectorAll('text, tspan'));
+          targets.forEach(node => {
+            node.setAttribute('font-family', e.target.value);
+            if (node.style) node.style.setProperty('font-family', e.target.value, 'important');
+            if (node.tagName.toLowerCase() === 'text' && node.hasAttribute('data-wrap-width')) wrapSvgTextElement(node);
+          });
         });
       });
       document.getElementById('inspFontWeight').addEventListener('change', (e) => {
         applyToSelected(el => {
-          const t = el.tagName === 'text' ? el : el.querySelector('text');
-          if (t) t.setAttribute('font-weight', e.target.value);
+          const t = resolveTextElement(el);
+          const targets = t ? [t, ...t.querySelectorAll('tspan')] : Array.from(el.querySelectorAll('text, tspan'));
+          targets.forEach(node => {
+            node.setAttribute('font-weight', e.target.value);
+            if (node.style) node.style.setProperty('font-weight', e.target.value, 'important');
+            if (node.tagName.toLowerCase() === 'text' && node.hasAttribute('data-wrap-width')) wrapSvgTextElement(node);
+          });
         });
       });
       document.getElementById('inspFontSize').addEventListener('input', (e) => {
+        const newFs = parseFloat(e.target.value);
+        if (!Number.isFinite(newFs) || newFs <= 0) return;
         applyToSelected(el => {
-          const t = el.tagName === 'text' ? el : el.querySelector('text');
-          if (t) t.setAttribute('font-size', e.target.value);
+          setElementFontSize(el, newFs);
+          const t = resolveTextElement(el);
+          const textNodes = t ? [t] : Array.from(el.querySelectorAll('text'));
+          textNodes.forEach(node => {
+            if (node.hasAttribute('data-wrap-width')) wrapSvgTextElement(node);
+          });
         });
       });
       document.getElementById('inspTextAnchor').addEventListener('change', (e) => {
         applyToSelected(el => {
-          const t = el.tagName === 'text' ? el : el.querySelector('text');
-          if (t) t.setAttribute('text-anchor', e.target.value);
+          const t = resolveTextElement(el);
+          const targets = t ? [t] : Array.from(el.querySelectorAll('text'));
+          targets.forEach(node => {
+            node.setAttribute('text-anchor', e.target.value);
+            if (node.style) node.style.textAnchor = e.target.value;
+          });
         });
       });
       document.getElementById('inspLetterSpacing').addEventListener('input', (e) => {
         applyToSelected(el => {
-          const t = el.tagName === 'text' ? el : el.querySelector('text');
-          if (t) t.setAttribute('letter-spacing', e.target.value);
+          const t = resolveTextElement(el);
+          const targets = t ? [t, ...t.querySelectorAll('tspan')] : Array.from(el.querySelectorAll('text, tspan'));
+          targets.forEach(node => {
+            node.setAttribute('letter-spacing', e.target.value);
+            if (node.style) node.style.letterSpacing = e.target.value + 'px';
+          });
         });
       });
 
       document.getElementById('inspFillPicker').addEventListener('input', (e) => {
-        document.getElementById('inspFillHex').value = e.target.value.toUpperCase();
-        applyToSelected(el => el.setAttribute('fill', e.target.value.toUpperCase()));
+        const hex = e.target.value.toUpperCase();
+        document.getElementById('inspFillHex').value = hex;
+        document.getElementById('inspTextColorHex').value = hex;
+        document.getElementById('inspTextColorPicker').value = hex;
+        applyToSelected(el => setElementFillColor(el, hex));
+      });
+      document.getElementById('inspFillHex').addEventListener('input', (e) => {
+        const val = e.target.value.trim();
+        const norm = normalizeHex(val);
+        if (norm && norm.startsWith('#') && norm.length === 7) {
+          document.getElementById('inspFillPicker').value = norm;
+          document.getElementById('inspTextColorPicker').value = norm;
+          document.getElementById('inspTextColorHex').value = norm;
+          applyToSelected(el => setElementFillColor(el, norm));
+        }
       });
       document.getElementById('inspFillHex').addEventListener('change', (e) => {
-        applyToSelected(el => el.setAttribute('fill', e.target.value.trim()));
+        applyToSelected(el => setElementFillColor(el, e.target.value.trim()));
+        updateInspectorUI();
       });
       document.getElementById('btnFillNone').addEventListener('click', () => {
         document.getElementById('inspFillHex').value = 'none';
-        applyToSelected(el => el.setAttribute('fill', 'none'));
+        applyToSelected(el => setElementFillColor(el, 'none'));
       });
       document.getElementById('inspOpacity').addEventListener('input', (e) => {
         applyToSelected(el => el.setAttribute('opacity', e.target.value));
@@ -4476,13 +5858,51 @@
       });
 
       document.getElementById('inspWidth').addEventListener('input', (e) => {
+        const val = Math.max(2, parseFloat(e.target.value) || 2);
         applyToSelected(el => {
-          if (el.tagName === 'rect') el.setAttribute('width', e.target.value);
+          const tag = el.tagName.toLowerCase();
+          if (tag === 'rect') {
+            el.setAttribute('width', String(val));
+          } else if (tag === 'line') {
+            const x1 = parseFloat(el.getAttribute('x1') || '0');
+            el.setAttribute('x2', String(Math.round((x1 + val) * 10) / 10));
+          } else if (tag === 'circle') {
+            el.setAttribute('r', String(Math.round((val / 2) * 10) / 10));
+          } else if (tag === 'ellipse') {
+            el.setAttribute('rx', String(Math.round((val / 2) * 10) / 10));
+          } else if (tag === 'text') {
+            wrapSvgTextElement(el, val);
+          } else if (isCalloutGroupElement(el)) {
+            const rEl = el.querySelector(':scope > rect');
+            const tEl = el.querySelector(':scope > text');
+            if (rEl) rEl.setAttribute('width', String(val));
+            if (tEl && rEl) {
+              const rx = parseFloat(rEl.getAttribute('x') || '0');
+              const tx = (tEl.getAttribute('text-anchor') || 'middle') === 'middle' ? rx + val / 2 : rx + 10;
+              tEl.setAttribute('x', String(tx));
+              wrapSvgTextElement(tEl, Math.max(20, val - 16));
+              tEl.querySelectorAll('tspan').forEach(ts => ts.setAttribute('x', String(tx)));
+            }
+          }
         });
       });
       document.getElementById('inspHeight').addEventListener('input', (e) => {
+        const val = Math.max(2, parseFloat(e.target.value) || 2);
         applyToSelected(el => {
-          if (el.tagName === 'rect') el.setAttribute('height', e.target.value);
+          const tag = el.tagName.toLowerCase();
+          if (tag === 'rect') {
+            el.setAttribute('height', String(val));
+          } else if (tag === 'line') {
+            const y1 = parseFloat(el.getAttribute('y1') || '0');
+            el.setAttribute('y2', String(Math.round((y1 + val) * 10) / 10));
+          } else if (tag === 'circle') {
+            el.setAttribute('r', String(Math.round((val / 2) * 10) / 10));
+          } else if (tag === 'ellipse') {
+            el.setAttribute('ry', String(Math.round((val / 2) * 10) / 10));
+          } else if (isCalloutGroupElement(el)) {
+            const rEl = el.querySelector(':scope > rect');
+            if (rEl) rEl.setAttribute('height', String(val));
+          }
         });
       });
 
@@ -4626,24 +6046,27 @@
     }
 
     function openInlineTextEditor(textEl) {
+      textEl = resolveTextElement(textEl) || textEl;
       const editor = document.getElementById('inlineTextEditor');
       const input = document.getElementById('inlineTextInput');
       const rect = getViewportRectForSvgElement(textEl);
       editor.style.left = `${Math.max(12, rect.x)}px`;
-      editor.style.top = `${Math.max(12, rect.y - 44)}px`;
+      editor.style.top = `${Math.max(12, rect.y - 68)}px`;
       editor.style.display = 'block';
-      input.value = textEl.textContent.trim();
+      input.value = getTextRawContent(textEl);
       input.focus();
       input.select();
 
       input.oninput = () => {
-        textEl.textContent = input.value;
+        textEl.setAttribute('data-raw-text', input.value);
+        wrapSvgTextElement(textEl);
         document.getElementById('inspTextContent').value = input.value;
         updateSelectionOverlay();
         renderLayerTree();
       };
       input.onkeydown = (ev) => {
-        if (ev.key === 'Enter') {
+        if (ev.key === 'Enter' && !ev.shiftKey) {
+          ev.preventDefault();
           pushHistorySnapshot();
           hideInlineTextEditor();
         } else if (ev.key === 'Escape') {
@@ -4691,6 +6114,11 @@
 
     // Boot Application (starts ready for SVG import)
     window.addEventListener('DOMContentLoaded', () => {
+      let savedTheme = 'dark';
+      try {
+        savedTheme = localStorage.getItem('svg_studio_theme') || 'dark';
+      } catch (_) {}
+      applyTheme(savedTheme, false);
       renderPaletteList();
       renderLayerTree();
       initEventListeners();
